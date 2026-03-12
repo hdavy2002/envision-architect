@@ -644,22 +644,22 @@ const HoursMap = () => (
    BOOKING
    ═══════════════════════════════════════════════ */
 const Booking = () => (
-  <section id="booking" className="py-24 md:py-32 bg-muted">
-    <div className="max-w-4xl mx-auto px-6">
+  <section id="booking" className="py-16 sm:py-20 md:py-32 bg-muted">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6">
       <motion.div
         variants={fadeUp}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="text-center mb-10"
+        className="text-center mb-8 sm:mb-10"
       >
-        <span className="font-heading text-xs tracking-[0.3em] uppercase text-primary block mb-4">
+        <span className="font-heading text-xs tracking-[0.3em] uppercase text-primary block mb-3 sm:mb-4">
           Schedule
         </span>
-        <h2 className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-3">
+        <h2 className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl text-foreground mb-3">
           Book a Consultation
         </h2>
-        <p className="font-body text-muted-foreground text-[15px]">
+        <p className="font-body text-muted-foreground text-sm sm:text-[15px]">
           Schedule a time that works for you.
         </p>
       </motion.div>
@@ -670,12 +670,11 @@ const Booking = () => (
         viewport={{ once: true }}
         className="rounded-lg overflow-hidden bg-card"
       >
-        {/* NOTE: Replace src with actual cal.com booking URL */}
         <iframe
           title="Book Appointment"
           src="https://cal.com"
           className="w-full"
-          style={{ height: 600, border: 0 }}
+          style={{ height: 500, border: 0 }}
           loading="lazy"
         />
       </motion.div>
