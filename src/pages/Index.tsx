@@ -83,12 +83,12 @@ const Header = () => {
   return (
     <>
       {/* Large logo banner — white bg */}
-      <div className="bg-card flex items-center justify-center py-8 md:py-10">
+      <div className="bg-card flex items-center justify-center py-6 sm:py-8 md:py-10">
         <a href="#">
           <img
             src={logoImg}
             alt="Envision Creations"
-            className="h-24 sm:h-28 md:h-36 object-contain"
+            className="h-16 sm:h-24 md:h-36 object-contain"
           />
         </a>
       </div>
@@ -102,8 +102,8 @@ const Header = () => {
           borderBottom: useTransform(headerBg, (v) => `1px solid hsla(30,10%,86%,${v * 0.5})`),
         }}
       >
-        <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-center relative">
-          <div className="hidden lg:flex items-center gap-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-center relative">
+          <div className="hidden lg:flex items-center gap-8 xl:gap-10">
             {NAV_LINKS.map((l) => (
               <a
                 key={l.label}
@@ -123,7 +123,7 @@ const Header = () => {
           </div>
 
           <button
-            className="lg:hidden absolute right-6 text-foreground"
+            className="lg:hidden absolute right-4 sm:right-6 w-10 h-10 flex items-center justify-center text-foreground"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
@@ -146,7 +146,7 @@ const Header = () => {
                   <a
                     key={l.label}
                     href={l.href}
-                    className="font-heading text-xs tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground"
+                    className="font-heading text-sm tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground py-1"
                     onClick={() => setMenuOpen(false)}
                   >
                     {l.label}
@@ -154,7 +154,7 @@ const Header = () => {
                 ))}
                 <a
                   href="#contact"
-                  className="font-heading text-xs tracking-[0.15em] uppercase px-6 py-2.5 rounded bg-accent text-accent-foreground"
+                  className="font-heading text-sm tracking-[0.15em] uppercase px-8 py-3 rounded bg-accent text-accent-foreground"
                   onClick={() => setMenuOpen(false)}
                 >
                   Enquire
