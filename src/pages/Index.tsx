@@ -1,4 +1,4 @@
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect, useRef, FormEvent } from "react";
 import {
   motion,
   useScroll,
@@ -47,9 +47,9 @@ const PROCESS_STEPS = [
 ];
 
 const SERVICE_CARDS = [
-  { img: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800", title: "Modern Elevations", desc: "Contemporary facades that command attention and complement their surroundings." },
-  { img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800", title: "Bespoke Layouts", desc: "Every room, corridor, and threshold designed around your daily rituals." },
-  { img: "https://images.unsplash.com/photo-1600607687939-ce8a6f349de4?w=800", title: "Lifestyle Design", desc: "Spaces that adapt to how you live — functional, beautiful, and unmistakably yours." },
+  { img: "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800", title: "Modern Elevations", desc: "Contemporary facades that command attention and complement their surroundings." },
+  { img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800", title: "Bespoke Layouts", desc: "Every room, corridor, and threshold designed around your daily rituals." },
+  { img: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800", title: "Lifestyle Design", desc: "Spaces that adapt to how you live — functional, beautiful, and unmistakably yours." },
 ];
 
 const galleryImages = [galleryImg1];
@@ -459,8 +459,37 @@ const Services = () => (
 /* ═══════════════════════════════════════════════
    GALLERY
    ═══════════════════════════════════════════════ */
+const GALLERY_IMAGES = [
+  galleryImg1,
+  "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1200&q=80",
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
+  "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1200&q=80",
+  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80",
+  "https://images.unsplash.com/photo-1600607687939-ce8a6f349de4?w=1200&q=80",
+  "https://images.unsplash.com/photo-1600566753376-12c8ab7c5a38?w=1200&q=80",
+  "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=1200&q=80",
+  "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&q=80",
+];
+
 const Gallery = () => {
-  const placeholders = Array.from({ length: 9 });
+  const [activeIdx, setActiveIdx] = useState(0);
+  const thumbRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (dir: "left" | "right") => {
+    const next = dir === "left"
+      ? Math.max(0, activeIdx - 1)
+      : Math.min(GALLERY_IMAGES.length - 1, activeIdx + 1);
+    setActiveIdx(next);
+  };
+
+  useEffect(() => {
+    if (thumbRef.current) {
+      const thumb = thumbRef.current.children[activeIdx] as HTMLElement;
+      if (thumb) {
+        thumb.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+      }
+    }
+  }, [activeIdx]);
 
   return (
     <section id="gallery" className="py-24 md:py-32 bg-muted">
@@ -480,41 +509,62 @@ const Gallery = () => {
           </h2>
         </motion.div>
 
+        {/* Main image with nav arrows */}
         <motion.div
-          variants={stagger}
+          variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4"
+          className="relative mb-6"
         >
-          {galleryImages.length > 0
-            ? galleryImages.map((src, i) => (
-                <motion.div
-                  key={i}
-                  variants={fadeUp}
-                  whileHover={{ scale: 1.015 }}
-                  className="break-inside-avoid overflow-hidden rounded-lg"
-                >
-                  <img
-                    src={src}
-                    alt={`Project ${i + 1}`}
-                    className="w-full object-cover"
-                    loading="lazy"
-                  />
-                </motion.div>
-              ))
-            : placeholders.map((_, i) => (
-                <motion.div
-                  key={i}
-                  variants={fadeUp}
-                  className="break-inside-avoid bg-background rounded-lg flex flex-col items-center justify-center"
-                  style={{ height: i % 3 === 0 ? 320 : i % 3 === 1 ? 240 : 280 }}
-                >
-                  <span className="text-3xl mb-2 opacity-20">📷</span>
-                  <span className="font-body text-muted-foreground text-xs">Coming soon</span>
-                </motion.div>
-              ))}
+          <div className="relative overflow-hidden rounded-lg bg-background aspect-[16/10] md:aspect-[16/9]">
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={activeIdx}
+                src={GALLERY_IMAGES[activeIdx]}
+                alt={`Project ${activeIdx + 1}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.4 }}
+                className="w-full h-full object-cover"
+              />
+            </AnimatePresence>
+          </div>
+
+          {/* Left / Right arrows */}
+          <button
+            onClick={() => scroll("left")}
+            disabled={activeIdx === 0}
+            className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-card/80 backdrop-blur flex items-center justify-center text-foreground hover:bg-card transition disabled:opacity-30"
+          >
+            <i className="fa-solid fa-chevron-left text-sm" />
+          </button>
+          <button
+            onClick={() => scroll("right")}
+            disabled={activeIdx === GALLERY_IMAGES.length - 1}
+            className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-card/80 backdrop-blur flex items-center justify-center text-foreground hover:bg-card transition disabled:opacity-30"
+          >
+            <i className="fa-solid fa-chevron-right text-sm" />
+          </button>
         </motion.div>
+
+        {/* Thumbnail strip */}
+        <div className="overflow-x-auto scrollbar-hide">
+          <div ref={thumbRef} className="flex gap-2 justify-center">
+            {GALLERY_IMAGES.map((src, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveIdx(i)}
+                className={`shrink-0 w-20 h-14 md:w-24 md:h-16 rounded overflow-hidden border-2 transition-all duration-300 ${
+                  i === activeIdx ? "border-primary scale-105" : "border-transparent opacity-60 hover:opacity-100"
+                }`}
+              >
+                <img src={src} alt={`Thumb ${i + 1}`} className="w-full h-full object-cover" />
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -773,7 +823,9 @@ const Footer = () => (
   <footer className="bg-accent py-16">
     <div className="max-w-7xl mx-auto px-6 grid sm:grid-cols-3 gap-12">
       <div>
-        <img src={logoImg} alt="Envision Creations" className="h-12 object-contain mb-4 brightness-0 invert opacity-80" />
+        <div className="bg-card rounded-2xl p-4 inline-block mb-4">
+          <img src={logoImg} alt="Envision Creations" className="h-14 object-contain" />
+        </div>
         <p className="font-body text-accent-foreground/50 text-sm leading-relaxed">
           Bringing Ideas &amp; Dreams to Life
         </p>
