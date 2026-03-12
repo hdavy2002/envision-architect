@@ -403,22 +403,22 @@ const Process = () => (
    SERVICES
    ═══════════════════════════════════════════════ */
 const Services = () => (
-  <section id="services" className="py-24 md:py-32">
-    <div className="max-w-7xl mx-auto px-6">
+  <section id="services" className="py-16 sm:py-20 md:py-32">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6">
       <motion.div
         variants={fadeUp}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="text-center mb-16"
+        className="text-center mb-10 sm:mb-16"
       >
-        <span className="font-heading text-xs tracking-[0.3em] uppercase text-primary block mb-4">
+        <span className="font-heading text-xs tracking-[0.3em] uppercase text-primary block mb-3 sm:mb-4">
           What We Offer
         </span>
-        <h2 className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-5">
+        <h2 className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl text-foreground mb-4 sm:mb-5">
           What to Expect
         </h2>
-        <p className="font-body text-muted-foreground max-w-2xl mx-auto text-[15px] leading-relaxed">
+        <p className="font-body text-muted-foreground max-w-2xl mx-auto text-sm sm:text-[15px] leading-relaxed">
           With in-depth experience in planning and custom home design, every project
           receives our full attention — from bespoke floor plans to modern elevations.
         </p>
@@ -429,7 +429,7 @@ const Services = () => (
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="grid md:grid-cols-3 gap-8"
+        className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8"
       >
         {SERVICE_CARDS.map((c) => (
           <motion.div
@@ -438,18 +438,18 @@ const Services = () => (
             whileHover={{ y: -6 }}
             className="group cursor-pointer"
           >
-            <div className="overflow-hidden rounded-lg mb-5">
+            <div className="overflow-hidden rounded-lg mb-4 sm:mb-5">
               <motion.img
                 src={c.img}
                 alt={c.title}
-                className="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-56 sm:h-64 md:h-72 object-cover transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
               />
             </div>
-            <h3 className="font-heading font-semibold text-foreground text-sm tracking-wide uppercase mb-2">
+            <h3 className="font-heading font-semibold text-foreground text-xs sm:text-sm tracking-wide uppercase mb-2">
               {c.title}
             </h3>
-            <p className="font-body text-muted-foreground text-sm leading-relaxed">
+            <p className="font-body text-muted-foreground text-xs sm:text-sm leading-relaxed">
               {c.desc}
             </p>
           </motion.div>
