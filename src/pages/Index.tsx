@@ -823,7 +823,9 @@ const Footer = () => (
   <footer className="bg-accent py-16">
     <div className="max-w-7xl mx-auto px-6 grid sm:grid-cols-3 gap-12">
       <div>
-        <img src={logoImg} alt="Envision Creations" className="h-12 object-contain mb-4 brightness-0 invert opacity-80" />
+        <div className="bg-card rounded-2xl p-4 inline-block mb-4">
+          <img src={logoImg} alt="Envision Creations" className="h-14 object-contain" />
+        </div>
         <p className="font-body text-accent-foreground/50 text-sm leading-relaxed">
           Bringing Ideas &amp; Dreams to Life
         </p>
