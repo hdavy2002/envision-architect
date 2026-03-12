@@ -343,19 +343,19 @@ const About = () => (
    PROCESS
    ═══════════════════════════════════════════════ */
 const Process = () => (
-  <section id="process" className="py-24 md:py-32 bg-accent">
-    <div className="max-w-7xl mx-auto px-6">
+  <section id="process" className="py-16 sm:py-20 md:py-32 bg-accent">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6">
       <motion.div
         variants={fadeUp}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="text-center mb-16"
+        className="text-center mb-10 sm:mb-16"
       >
-        <span className="font-heading text-xs tracking-[0.3em] uppercase text-accent-foreground/50 block mb-4">
+        <span className="font-heading text-xs tracking-[0.3em] uppercase text-accent-foreground/50 block mb-3 sm:mb-4">
           How We Work
         </span>
-        <h2 className="font-heading font-bold text-3xl md:text-4xl text-accent-foreground">
+        <h2 className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl text-accent-foreground">
           Our Process
         </h2>
       </motion.div>
@@ -365,21 +365,21 @@ const Process = () => (
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-accent-foreground/10 rounded-lg overflow-hidden"
+        className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-accent-foreground/10 rounded-lg overflow-hidden"
       >
         {PROCESS_STEPS.map((s) => (
           <motion.div
             key={s.num}
             variants={fadeUp}
-            className="bg-accent p-8 group"
+            className="bg-accent p-5 sm:p-8 group"
           >
-            <span className="font-heading text-3xl font-bold text-accent-foreground/15 block mb-4 group-hover:text-primary-foreground/40 transition-colors duration-500">
+            <span className="font-heading text-2xl sm:text-3xl font-bold text-accent-foreground/15 block mb-3 sm:mb-4 group-hover:text-primary-foreground/40 transition-colors duration-500">
               {s.num}
             </span>
-            <h3 className="font-heading font-semibold text-accent-foreground text-sm tracking-wide uppercase mb-3">
+            <h3 className="font-heading font-semibold text-accent-foreground text-xs sm:text-sm tracking-wide uppercase mb-2 sm:mb-3">
               {s.title}
             </h3>
-            <p className="font-body text-accent-foreground/60 text-sm leading-relaxed">
+            <p className="font-body text-accent-foreground/60 text-xs sm:text-sm leading-relaxed">
               {s.desc}
             </p>
           </motion.div>
@@ -391,7 +391,7 @@ const Process = () => (
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="font-body italic text-accent-foreground/50 text-center mt-14 text-base max-w-2xl mx-auto"
+        className="font-body italic text-accent-foreground/50 text-center mt-8 sm:mt-14 text-sm sm:text-base max-w-2xl mx-auto"
       >
         "From initial concept to council approval — we walk the journey with you."
       </motion.p>
