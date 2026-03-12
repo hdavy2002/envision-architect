@@ -174,63 +174,51 @@ const Header = () => {
 const Hero = () => {
   const { scrollY } = useScroll();
   const bgY = useTransform(scrollY, [0, 800], [0, 200]);
-  const textY = useTransform(scrollY, [0, 600], [0, 80]);
 
   return (
-    <section className="relative min-h-[calc(100vh-theme(spacing.24)-theme(spacing.12))] md:min-h-[calc(100vh-theme(spacing.36)-theme(spacing.12))] overflow-hidden">
-      <motion.div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80)",
-          y: bgY,
-          scale: 1.1,
-        }}
-      />
-      <div className="absolute inset-0 bg-ec-dark/60" />
-
-      <motion.div
-        className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6"
-        style={{ y: textY }}
-      >
+    <section className="relative min-h-[calc(100vh-theme(spacing.24)-theme(spacing.12))] md:min-h-[calc(100vh-theme(spacing.36)-theme(spacing.12))] overflow-hidden flex">
+      {/* Left side — text content on dark */}
+      <div className="relative z-10 flex flex-col justify-center w-full lg:w-1/2 px-8 md:px-16 lg:px-20 py-20 bg-ec-dark">
+        {/* Decorative line */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+          initial={{ scaleY: 0 }}
+          animate={{ scaleY: 1 }}
+          transition={{ duration: 1.2, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+          className="absolute left-8 md:left-16 lg:left-20 top-20 w-px h-16 bg-primary origin-top"
+        />
+
+        <motion.span
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+          className="font-heading text-sm tracking-[0.25em] uppercase text-primary mb-8 mt-12"
         >
-          <span className="font-heading text-xs tracking-[0.35em] uppercase text-white/70 block mb-4">
-            Architecture · Design · Build
-          </span>
-        </motion.div>
+          Envision Creations
+        </motion.span>
 
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-          className="font-heading font-bold text-3xl sm:text-4xl md:text-6xl text-white max-w-4xl leading-[1.15] mb-6"
-        >
-          BDAA Accredited Building Designers Crafting Bespoke Homes Across Sydney
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
-          className="font-body text-white/70 text-base md:text-lg max-w-xl mb-10"
+          className="font-heading font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1] mb-10"
         >
-          From concept to completion.
-        </motion.p>
+          Bringing
+          <br />
+          <span className="italic font-normal text-primary">Ideas &amp; Dreams</span>
+          <br />
+          to Life
+        </motion.h1>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
-          className="flex flex-wrap gap-4 justify-center"
+          transition={{ duration: 0.8, delay: 1, ease: "easeOut" }}
+          className="flex flex-wrap gap-4"
         >
           <motion.a
             whileHover={{ y: -2 }}
             href="#contact"
-            className="font-heading text-xs tracking-[0.15em] uppercase px-8 py-3.5 rounded bg-white text-ec-dark transition-all duration-300 hover:bg-white/90"
+            className="font-heading text-xs tracking-[0.15em] uppercase px-8 py-3.5 rounded bg-primary text-primary-foreground transition-all duration-300 hover:bg-primary/90"
           >
             Start Your Project
           </motion.a>
@@ -245,13 +233,34 @@ const Hero = () => {
             WhatsApp Us
           </motion.a>
         </motion.div>
-      </motion.div>
+      </div>
 
+      {/* Right side — full image */}
+      <motion.div
+        className="hidden lg:block w-1/2 bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80)",
+          y: bgY,
+        }}
+      />
+
+      {/* Mobile background image */}
+      <motion.div
+        className="lg:hidden absolute inset-0 bg-cover bg-center -z-10"
+        style={{
+          backgroundImage:
+            "url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80)",
+          y: bgY,
+        }}
+      />
+
+      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+        className="absolute bottom-8 left-8 md:left-16 lg:left-20 z-10"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
