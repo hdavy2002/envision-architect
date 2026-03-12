@@ -176,22 +176,22 @@ const Hero = () => {
   const bgY = useTransform(scrollY, [0, 800], [0, 200]);
 
   return (
-    <section className="relative min-h-[calc(100vh-theme(spacing.24)-theme(spacing.12))] md:min-h-[calc(100vh-theme(spacing.36)-theme(spacing.12))] overflow-hidden flex">
+    <section className="relative min-h-[calc(100vh-5.5rem)] sm:min-h-[calc(100vh-8rem)] md:min-h-[calc(100vh-theme(spacing.36)-theme(spacing.12))] overflow-hidden flex">
       {/* Left side — text content on dark */}
-      <div className="relative z-10 flex flex-col justify-center w-full lg:w-1/2 px-8 md:px-16 lg:px-20 py-20 bg-ec-dark">
+      <div className="relative z-10 flex flex-col justify-center w-full lg:w-1/2 px-6 sm:px-10 md:px-16 lg:px-20 py-16 sm:py-20 bg-ec-dark">
         {/* Decorative line */}
         <motion.div
           initial={{ scaleY: 0 }}
           animate={{ scaleY: 1 }}
           transition={{ duration: 1.2, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-          className="absolute left-8 md:left-16 lg:left-20 top-20 w-px h-16 bg-primary origin-top"
+          className="absolute left-6 sm:left-10 md:left-16 lg:left-20 top-16 sm:top-20 w-px h-12 sm:h-16 bg-primary origin-top"
         />
 
         <motion.span
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-          className="font-heading text-sm tracking-[0.25em] uppercase text-primary mb-8 mt-12"
+          className="font-heading text-xs sm:text-sm tracking-[0.25em] uppercase text-primary mb-6 sm:mb-8 mt-10 sm:mt-12"
         >
           Envision Creations
         </motion.span>
@@ -200,7 +200,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
-          className="font-heading font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1] mb-10"
+          className="font-heading font-bold text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-white leading-[1.1] mb-8 sm:mb-10"
         >
           Bringing
           <br />
@@ -213,12 +213,12 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1, ease: "easeOut" }}
-          className="flex flex-wrap gap-4"
+          className="flex flex-col sm:flex-row gap-3 sm:gap-4"
         >
           <motion.a
             whileHover={{ y: -2 }}
             href="#contact"
-            className="font-heading text-xs tracking-[0.15em] uppercase px-8 py-3.5 rounded bg-primary text-primary-foreground transition-all duration-300 hover:bg-primary/90"
+            className="font-heading text-xs tracking-[0.15em] uppercase px-6 sm:px-8 py-3.5 rounded bg-primary text-primary-foreground transition-all duration-300 hover:bg-primary/90 text-center"
           >
             Start Your Project
           </motion.a>
@@ -227,7 +227,7 @@ const Hero = () => {
             href="https://wa.me/61434182035"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-heading text-xs tracking-[0.15em] uppercase px-8 py-3.5 rounded bg-whatsapp text-white transition-all duration-300 hover:opacity-90"
+            className="font-heading text-xs tracking-[0.15em] uppercase px-6 sm:px-8 py-3.5 rounded bg-whatsapp text-white transition-all duration-300 hover:opacity-90 text-center"
           >
             <i className="fa-brands fa-whatsapp mr-2" />
             WhatsApp Us
@@ -235,9 +235,9 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      {/* Right side — full image */}
+      {/* Right side — full image (tablet+) */}
       <motion.div
-        className="hidden lg:block w-1/2 bg-cover bg-center"
+        className="hidden md:block w-1/2 lg:w-1/2 bg-cover bg-center"
         style={{
           backgroundImage:
             "url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80)",
@@ -245,22 +245,25 @@ const Hero = () => {
         }}
       />
 
-      {/* Mobile background image */}
-      <motion.div
-        className="lg:hidden absolute inset-0 bg-cover bg-center -z-10"
-        style={{
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80)",
-          y: bgY,
-        }}
-      />
+      {/* Mobile background image with gradient overlay */}
+      <div className="md:hidden absolute inset-0 -z-10">
+        <motion.div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage:
+              "url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80)",
+            y: bgY,
+          }}
+        />
+        <div className="absolute inset-0 bg-ec-dark/85" />
+      </div>
 
       {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-8 md:left-16 lg:left-20 z-10"
+        className="absolute bottom-6 sm:bottom-8 left-6 sm:left-10 md:left-16 lg:left-20 z-10"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
