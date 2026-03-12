@@ -582,31 +582,31 @@ const Gallery = () => {
    HOURS & MAP
    ═══════════════════════════════════════════════ */
 const HoursMap = () => (
-  <section className="py-24 md:py-32">
-    <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-start">
+  <section className="py-16 sm:py-20 md:py-32">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-8 sm:gap-12 items-start">
       <motion.div
         variants={slideIn("left")}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="bg-muted rounded-lg p-10"
+        className="bg-muted rounded-lg p-6 sm:p-10"
       >
-        <h2 className="font-heading font-bold text-2xl text-foreground mb-8">Visit Us</h2>
+        <h2 className="font-heading font-bold text-xl sm:text-2xl text-foreground mb-6 sm:mb-8">Visit Us</h2>
         <div className="font-body text-muted-foreground space-y-4 text-sm">
           <div className="flex items-start gap-3">
-            <i className="fa-solid fa-location-dot text-primary mt-0.5" />
+            <i className="fa-solid fa-location-dot text-primary mt-0.5 w-4 text-center" />
             <span>7 Casamia Glade, Tallawong NSW 2762, Australia</span>
           </div>
           <div className="flex items-start gap-3">
-            <i className="fa-solid fa-phone text-primary mt-0.5" />
+            <i className="fa-solid fa-phone text-primary mt-0.5 w-4 text-center" />
             <span>+61 434 182 035</span>
           </div>
           <div className="flex items-start gap-3">
-            <i className="fa-solid fa-envelope text-primary mt-0.5" />
-            <span>sandhya@envisioncreations.com.au</span>
+            <i className="fa-solid fa-envelope text-primary mt-0.5 w-4 text-center" />
+            <span className="break-all sm:break-normal">sandhya@envisioncreations.com.au</span>
           </div>
           <div className="flex items-start gap-3">
-            <i className="fa-solid fa-clock text-primary mt-0.5" />
+            <i className="fa-solid fa-clock text-primary mt-0.5 w-4 text-center" />
             <span>Mon – Fri, 9:00 am – 6:00 pm</span>
           </div>
         </div>
@@ -615,7 +615,7 @@ const HoursMap = () => (
           href="https://maps.google.com/?q=7+Casamia+Glade+Tallawong+NSW+2762"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block mt-8 font-heading text-xs tracking-[0.15em] uppercase px-6 py-3 rounded-md bg-accent text-accent-foreground transition-colors"
+          className="inline-block mt-6 sm:mt-8 font-heading text-xs tracking-[0.15em] uppercase px-6 py-3 rounded-md bg-accent text-accent-foreground transition-colors"
         >
           Get Directions
         </motion.a>
@@ -631,7 +631,7 @@ const HoursMap = () => (
           title="Envision Creations Location"
           src="https://maps.google.com/maps?q=7+Casamia+Glade+Tallawong+NSW+2762&output=embed"
           className="w-full rounded-lg"
-          style={{ height: 420, border: 0 }}
+          style={{ height: 320, border: 0 }}
           loading="lazy"
           allowFullScreen
         />
