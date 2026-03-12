@@ -495,19 +495,19 @@ const Gallery = () => {
   }, [activeIdx]);
 
   return (
-    <section id="gallery" className="py-24 md:py-32 bg-muted">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="gallery" className="py-16 sm:py-20 md:py-32 bg-muted">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
-          <span className="font-heading text-xs tracking-[0.3em] uppercase text-primary block mb-4">
+          <span className="font-heading text-xs tracking-[0.3em] uppercase text-primary block mb-3 sm:mb-4">
             Portfolio
           </span>
-          <h2 className="font-heading font-bold text-3xl md:text-4xl text-foreground">
+          <h2 className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl text-foreground">
             Our Work
           </h2>
         </motion.div>
@@ -518,9 +518,9 @@ const Gallery = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="relative mb-6"
+          className="relative mb-4 sm:mb-6"
         >
-          <div className="relative overflow-hidden rounded-lg bg-background aspect-[16/10] md:aspect-[16/9]">
+          <div className="relative overflow-hidden rounded-lg bg-background aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9]">
             <AnimatePresence mode="wait">
               <motion.img
                 key={activeIdx}
@@ -533,33 +533,38 @@ const Gallery = () => {
                 className="w-full h-full object-cover"
               />
             </AnimatePresence>
+
+            {/* Image counter badge */}
+            <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 bg-ec-dark/70 backdrop-blur-sm text-white text-xs font-heading px-3 py-1.5 rounded-full">
+              {activeIdx + 1} / {GALLERY_IMAGES.length}
+            </div>
           </div>
 
           {/* Left / Right arrows */}
           <button
             onClick={() => scroll("left")}
             disabled={activeIdx === 0}
-            className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-card/80 backdrop-blur flex items-center justify-center text-foreground hover:bg-card transition disabled:opacity-30"
+            className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-card/80 backdrop-blur flex items-center justify-center text-foreground hover:bg-card transition disabled:opacity-30 active:scale-95"
           >
-            <i className="fa-solid fa-chevron-left text-sm" />
+            <i className="fa-solid fa-chevron-left text-xs sm:text-sm" />
           </button>
           <button
             onClick={() => scroll("right")}
             disabled={activeIdx === GALLERY_IMAGES.length - 1}
-            className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-card/80 backdrop-blur flex items-center justify-center text-foreground hover:bg-card transition disabled:opacity-30"
+            className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-card/80 backdrop-blur flex items-center justify-center text-foreground hover:bg-card transition disabled:opacity-30 active:scale-95"
           >
-            <i className="fa-solid fa-chevron-right text-sm" />
+            <i className="fa-solid fa-chevron-right text-xs sm:text-sm" />
           </button>
         </motion.div>
 
         {/* Thumbnail strip */}
-        <div className="overflow-x-auto scrollbar-hide">
-          <div ref={thumbRef} className="flex gap-2 justify-center">
+        <div className="overflow-x-auto scrollbar-hide -mx-4 sm:mx-0 px-4 sm:px-0">
+          <div ref={thumbRef} className="flex gap-1.5 sm:gap-2 justify-start sm:justify-center min-w-max sm:min-w-0">
             {GALLERY_IMAGES.map((src, i) => (
               <button
                 key={i}
                 onClick={() => setActiveIdx(i)}
-                className={`shrink-0 w-20 h-14 md:w-24 md:h-16 rounded overflow-hidden border-2 transition-all duration-300 ${
+                className={`shrink-0 w-16 h-11 sm:w-20 sm:h-14 md:w-24 md:h-16 rounded overflow-hidden border-2 transition-all duration-300 ${
                   i === activeIdx ? "border-primary scale-105" : "border-transparent opacity-60 hover:opacity-100"
                 }`}
               >
