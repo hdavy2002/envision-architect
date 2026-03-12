@@ -827,11 +827,11 @@ const Contact = () => {
    FOOTER
    ═══════════════════════════════════════════════ */
 const Footer = () => (
-  <footer className="bg-accent py-16">
-    <div className="max-w-7xl mx-auto px-6 grid sm:grid-cols-3 gap-12">
-      <div>
+  <footer className="bg-accent py-12 sm:py-16">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-12">
+      <div className="sm:col-span-2 lg:col-span-1">
         <div className="bg-card rounded-2xl p-4 inline-block mb-4">
-          <img src={logoImg} alt="Envision Creations" className="h-14 object-contain" />
+          <img src={logoImg} alt="Envision Creations" className="h-12 sm:h-14 object-contain" />
         </div>
         <p className="font-body text-accent-foreground/50 text-sm leading-relaxed">
           Bringing Ideas &amp; Dreams to Life
@@ -841,7 +841,7 @@ const Footer = () => (
         </p>
       </div>
       <div>
-        <h4 className="font-heading text-xs tracking-[0.2em] uppercase text-accent-foreground/60 mb-5">
+        <h4 className="font-heading text-xs tracking-[0.2em] uppercase text-accent-foreground/60 mb-4 sm:mb-5">
           Navigation
         </h4>
         <div className="flex flex-col gap-3">
@@ -849,7 +849,7 @@ const Footer = () => (
             <a
               key={l.label}
               href={l.href}
-              className="font-body text-accent-foreground/40 hover:text-accent-foreground/80 transition-colors text-sm"
+              className="font-body text-accent-foreground/40 hover:text-accent-foreground/80 transition-colors text-sm py-0.5"
             >
               {l.label}
             </a>
@@ -857,20 +857,20 @@ const Footer = () => (
         </div>
       </div>
       <div>
-        <h4 className="font-heading text-xs tracking-[0.2em] uppercase text-accent-foreground/60 mb-5">
+        <h4 className="font-heading text-xs tracking-[0.2em] uppercase text-accent-foreground/60 mb-4 sm:mb-5">
           Contact
         </h4>
         <div className="font-body text-accent-foreground/40 space-y-3 text-sm">
           <p>7 Casamia Glade, Tallawong NSW 2762</p>
           <p>+61 434 182 035</p>
-          <p>sandhya@envisioncreations.com.au</p>
+          <p className="break-all sm:break-normal">sandhya@envisioncreations.com.au</p>
         </div>
         <div className="flex gap-5 mt-6">
           {["fa-facebook-f", "fa-instagram", "fa-linkedin-in"].map((icon) => (
             <a
               key={icon}
               href="#"
-              className="text-accent-foreground/30 hover:text-accent-foreground/70 transition-colors"
+              className="w-9 h-9 rounded-full bg-accent-foreground/10 flex items-center justify-center text-accent-foreground/40 hover:text-accent-foreground/80 hover:bg-accent-foreground/20 transition-colors"
             >
               <i className={`fa-brands ${icon}`} />
             </a>
@@ -878,7 +878,7 @@ const Footer = () => (
         </div>
       </div>
     </div>
-    <div className="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-accent-foreground/10 text-center">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-accent-foreground/10 text-center">
       <p className="font-body text-accent-foreground/30 text-xs">
         © 2025 Envision Creations Pty Ltd · ABN 99 689 825 036
       </p>
