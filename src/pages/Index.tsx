@@ -698,27 +698,27 @@ const Contact = () => {
     "w-full rounded-md border border-border bg-card px-4 py-3 font-body text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 transition-shadow";
 
   return (
-    <section id="contact" className="py-24 md:py-32">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="contact" className="py-16 sm:py-20 md:py-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
-          <span className="font-heading text-xs tracking-[0.3em] uppercase text-primary block mb-4">
+          <span className="font-heading text-xs tracking-[0.3em] uppercase text-primary block mb-3 sm:mb-4">
             Get in Touch
           </span>
-          <h2 className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-3">
+          <h2 className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl text-foreground mb-3">
             Let's Talk
           </h2>
-          <p className="font-body text-muted-foreground text-[15px]">
+          <p className="font-body text-muted-foreground text-sm sm:text-[15px]">
             We'd love to hear about your project.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-12">
+        <div className="grid lg:grid-cols-5 gap-8 sm:gap-12">
           {/* Form */}
           <motion.div
             variants={slideIn("left")}
@@ -734,24 +734,24 @@ const Contact = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
-                  className="bg-muted rounded-lg p-14 text-center"
+                  className="bg-muted rounded-lg p-10 sm:p-14 text-center"
                 >
-                  <i className="fa-solid fa-check-circle text-4xl text-primary mb-4 block" />
-                  <p className="font-heading text-lg text-foreground">Thank you! We'll be in touch soon.</p>
+                  <i className="fa-solid fa-check-circle text-3xl sm:text-4xl text-primary mb-4 block" />
+                  <p className="font-heading text-base sm:text-lg text-foreground">Thank you! We'll be in touch soon.</p>
                 </motion.div>
               ) : (
                 <motion.form
                   key="form"
                   onSubmit={handleSubmit}
-                  className="space-y-5"
+                  className="space-y-4 sm:space-y-5"
                   initial={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  <div className="grid sm:grid-cols-2 gap-5">
+                  <div className="grid sm:grid-cols-2 gap-4 sm:gap-5">
                     <input type="text" placeholder="Full Name" required className={inputCls} />
                     <input type="email" placeholder="Email" required className={inputCls} />
                   </div>
-                  <div className="grid sm:grid-cols-2 gap-5">
+                  <div className="grid sm:grid-cols-2 gap-4 sm:gap-5">
                     <input type="tel" placeholder="Phone" className={inputCls} />
                     <select required className={inputCls}>
                       <option value="">Project Type</option>
@@ -761,11 +761,11 @@ const Contact = () => {
                       <option>Other</option>
                     </select>
                   </div>
-                  <textarea placeholder="Tell us about your project..." rows={5} className={inputCls} />
+                  <textarea placeholder="Tell us about your project..." rows={4} className={inputCls} />
                   <motion.button
                     whileHover={{ y: -2 }}
                     type="submit"
-                    className="w-full font-heading text-xs tracking-[0.15em] uppercase px-8 py-4 rounded-md bg-accent text-accent-foreground hover:bg-accent/90 transition-colors"
+                    className="w-full font-heading text-xs tracking-[0.15em] uppercase px-8 py-4 rounded-md bg-accent text-accent-foreground hover:bg-accent/90 transition-colors active:scale-[0.98]"
                   >
                     Send Message
                   </motion.button>
@@ -782,25 +782,25 @@ const Contact = () => {
             viewport={{ once: true }}
             className="lg:col-span-2"
           >
-            <div className="bg-muted rounded-lg p-8 mb-6">
-              <h3 className="font-heading font-semibold text-foreground text-sm tracking-wide uppercase mb-6">
+            <div className="bg-muted rounded-lg p-6 sm:p-8 mb-4 sm:mb-6">
+              <h3 className="font-heading font-semibold text-foreground text-sm tracking-wide uppercase mb-5 sm:mb-6">
                 Contact Details
               </h3>
               <div className="font-body text-muted-foreground space-y-4 text-sm">
                 <div className="flex items-start gap-3">
-                  <i className="fa-solid fa-location-dot text-primary mt-0.5" />
+                  <i className="fa-solid fa-location-dot text-primary mt-0.5 w-4 text-center" />
                   <span>7 Casamia Glade, Tallawong NSW 2762, Australia</span>
                 </div>
                 <div className="flex items-start gap-3">
-                  <i className="fa-solid fa-phone text-primary mt-0.5" />
+                  <i className="fa-solid fa-phone text-primary mt-0.5 w-4 text-center" />
                   <span>+61 434 182 035</span>
                 </div>
                 <div className="flex items-start gap-3">
-                  <i className="fa-solid fa-envelope text-primary mt-0.5" />
-                  <span>sandhya@envisioncreations.com.au</span>
+                  <i className="fa-solid fa-envelope text-primary mt-0.5 w-4 text-center" />
+                  <span className="break-all sm:break-normal">sandhya@envisioncreations.com.au</span>
                 </div>
                 <div className="flex items-start gap-3">
-                  <i className="fa-solid fa-clock text-primary mt-0.5" />
+                  <i className="fa-solid fa-clock text-primary mt-0.5 w-4 text-center" />
                   <span>Mon – Fri, 9:00 am – 6:00 pm</span>
                 </div>
               </div>
@@ -811,7 +811,7 @@ const Contact = () => {
               href="https://wa.me/61434182035"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-3 w-full font-heading text-xs tracking-[0.15em] uppercase px-6 py-4 rounded-md bg-whatsapp text-primary-foreground transition-colors"
+              className="flex items-center justify-center gap-3 w-full font-heading text-xs tracking-[0.15em] uppercase px-6 py-4 rounded-md bg-whatsapp text-primary-foreground transition-colors active:scale-[0.98]"
             >
               <i className="fa-brands fa-whatsapp text-lg" />
               WhatsApp Us
