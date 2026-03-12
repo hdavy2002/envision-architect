@@ -281,23 +281,23 @@ const Hero = () => {
    ABOUT
    ═══════════════════════════════════════════════ */
 const About = () => (
-  <section id="about" className="py-24 md:py-32">
-    <div className="max-w-7xl mx-auto px-6">
-      <div className="grid lg:grid-cols-2 gap-16 items-center">
+  <section id="about" className="py-16 sm:py-20 md:py-32">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="grid lg:grid-cols-2 gap-10 md:gap-16 items-center">
         <motion.div
           variants={slideIn("left")}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <span className="font-heading text-xs tracking-[0.3em] uppercase text-primary mb-6 block">
+          <span className="font-heading text-xs tracking-[0.3em] uppercase text-primary mb-4 sm:mb-6 block">
             About Us
           </span>
-          <h2 className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-8 leading-tight">
+          <h2 className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl text-foreground mb-6 sm:mb-8 leading-tight">
             Design with
             <br />purpose &amp; precision
           </h2>
-          <div className="font-body text-muted-foreground space-y-5 leading-relaxed text-[15px]">
+          <div className="font-body text-muted-foreground space-y-4 sm:space-y-5 leading-relaxed text-sm sm:text-[15px]">
             <p>
               Envision Creations is a BDAA Accredited Building Designer Service.
               We believe that architecture has the power to shape how people live,
@@ -309,7 +309,7 @@ const About = () => (
               the unique identity of its inhabitants.
             </p>
           </div>
-          <div className="flex items-center gap-4 mt-8">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-6 sm:mt-8">
             <span className="inline-block font-heading text-[10px] tracking-[0.2em] uppercase px-4 py-2 rounded bg-muted text-muted-foreground">
               BDAA Accredited
             </span>
@@ -329,10 +329,10 @@ const About = () => (
           <img
             src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80"
             alt="Modern architectural design"
-            className="w-full h-[500px] object-cover rounded-lg"
+            className="w-full h-64 sm:h-80 md:h-[420px] lg:h-[500px] object-cover rounded-lg"
           />
-          {/* Decorative offset frame */}
-          <div className="absolute -bottom-4 -right-4 w-full h-full border border-primary/30 rounded-lg -z-10" />
+          {/* Decorative offset frame — hidden on mobile to prevent overflow */}
+          <div className="hidden sm:block absolute -bottom-4 -right-4 w-full h-full border border-primary/30 rounded-lg -z-10" />
         </motion.div>
       </div>
     </div>
