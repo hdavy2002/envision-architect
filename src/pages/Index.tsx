@@ -32,50 +32,45 @@ const useInjectHead = () => {
 
 /* ─── constants ─── */
 const NAV_LINKS = [
-  { label: "Home", href: "#" },
   { label: "About", href: "#about" },
   { label: "Process", href: "#process" },
-  { label: "Gallery", href: "#gallery" },
   { label: "Services", href: "#services" },
+  { label: "Gallery", href: "#gallery" },
   { label: "Contact", href: "#contact" },
 ];
 
-const PROCESS_CARDS = [
-  { icon: "🔍", title: "Initial Consultation", desc: "We listen to your vision, lifestyle, and goals." },
-  { icon: "✏️", title: "Concept Design", desc: "Modern elevations, bespoke layouts, tailored to you." },
-  { icon: "📋", title: "DA/CDC/CC Approvals", desc: "We handle all planning and approval documentation." },
-  { icon: "🏗️", title: "Build Support", desc: "We walk the entire journey with you through to build." },
+const PROCESS_STEPS = [
+  { num: "01", title: "Consultation", desc: "We listen to your vision, understand your lifestyle, and define your goals together." },
+  { num: "02", title: "Concept Design", desc: "Modern elevations, bespoke layouts, and spatial concepts tailored entirely to you." },
+  { num: "03", title: "Approvals", desc: "DA, CDC, and CC — we handle all planning documentation and council approvals." },
+  { num: "04", title: "Build Support", desc: "From groundbreaking to handover, we walk the entire journey with you." },
 ];
 
 const SERVICE_CARDS = [
-  { img: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600", title: "Modern House Elevations" },
-  { img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600", title: "Bespoke Custom Layouts" },
-  { img: "https://images.unsplash.com/photo-1600607687939-ce8a6f349de4?w=600", title: "Tailored Lifestyle Design" },
+  { img: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800", title: "Modern Elevations", desc: "Contemporary facades that command attention and complement their surroundings." },
+  { img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800", title: "Bespoke Layouts", desc: "Every room, corridor, and threshold designed around your daily rituals." },
+  { img: "https://images.unsplash.com/photo-1600607687939-ce8a6f349de4?w=800", title: "Lifestyle Design", desc: "Spaces that adapt to how you live — functional, beautiful, and unmistakably yours." },
 ];
 
-// Gallery images — add more imports here as needed
 const galleryImages = [galleryImg1];
 
 /* ─── animation variants ─── */
+const ease = [0.25, 0.1, 0.25, 1] as const;
+
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
 };
 
-const staggerContainer = {
+const stagger = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
+  visible: { transition: { staggerChildren: 0.1 } },
 };
 
-const slideLeft = {
-  hidden: { opacity: 0, x: -60 },
+const slideIn = (dir: "left" | "right") => ({
+  hidden: { opacity: 0, x: dir === "left" ? -50 : 50 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" as const } },
-};
-
-const slideRight = {
-  hidden: { opacity: 0, x: 60 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" as const } },
-};
+});
 
 /* ═══════════════════════════════════════════════
    HEADER
@@ -83,50 +78,69 @@ const slideRight = {
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { scrollY } = useScroll();
-  const logoSize = useTransform(scrollY, [0, 200], [52, 28]);
-  const headerPad = useTransform(scrollY, [0, 200], [24, 8]);
-  const headerShadow = useTransform(scrollY, [0, 100], [0, 0.1]);
+  const logoH = useTransform(scrollY, [0, 200], [56, 36]);
+  const headerBg = useTransform(scrollY, [0, 80], [0, 1]);
 
   return (
     <motion.header
-      className="fixed top-0 left-0 w-full z-50 bg-background"
+      className="fixed top-0 left-0 w-full z-50"
       style={{
-        paddingTop: headerPad,
-        paddingBottom: headerPad,
-        boxShadow: useTransform(headerShadow, (v) => `0 4px 24px rgba(0,0,0,${v})`),
+        backgroundColor: useTransform(headerBg, (v) => `hsla(30,10%,98%,${0.6 + v * 0.4})`),
+        backdropFilter: useTransform(headerBg, (v) => `blur(${v * 16}px)`),
+        borderBottom: useTransform(headerBg, (v) => `1px solid hsla(30,10%,86%,${v * 0.5})`),
       }}
     >
-      <div className="max-w-7xl mx-auto px-4 flex flex-col items-center">
-        <motion.h1
-          className="font-heading font-bold text-primary tracking-widest uppercase"
-          style={{ fontSize: logoSize }}
-        >
-          Envision Creations
-        </motion.h1>
-        <p className="font-body italic text-ec-mid text-sm mt-1">
-          Bringing Ideas &amp; Dreams to Life
-        </p>
-
-        {/* Desktop nav */}
-        <nav className="hidden md:flex gap-6 mt-3">
-          {NAV_LINKS.map((l) => (
+      <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+        {/* Left nav - desktop */}
+        <nav className="hidden lg:flex items-center gap-8 flex-1">
+          {NAV_LINKS.slice(0, 3).map((l) => (
             <a
               key={l.label}
               href={l.href}
-              className="font-heading text-sm text-ec-mid hover:text-primary transition-colors"
+              className="font-heading text-xs tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground transition-colors duration-300"
             >
               {l.label}
             </a>
           ))}
         </nav>
 
+        {/* Center logo */}
+        <a href="#" className="flex-shrink-0">
+          <motion.img
+            src={logoImg}
+            alt="Envision Creations"
+            style={{ height: logoH }}
+            className="object-contain"
+          />
+        </a>
+
+        {/* Right nav - desktop */}
+        <nav className="hidden lg:flex items-center gap-8 flex-1 justify-end">
+          {NAV_LINKS.slice(3).map((l) => (
+            <a
+              key={l.label}
+              href={l.href}
+              className="font-heading text-xs tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground transition-colors duration-300"
+            >
+              {l.label}
+            </a>
+          ))}
+          <motion.a
+            whileHover={{ scale: 1.02 }}
+            href="#contact"
+            className="font-heading text-xs tracking-[0.15em] uppercase px-5 py-2 rounded-md bg-accent text-accent-foreground"
+          >
+            Enquire
+          </motion.a>
+        </nav>
+
         {/* Mobile hamburger */}
         <button
-          className="md:hidden absolute top-4 right-4 text-2xl text-ec-mid"
+          className="lg:hidden text-foreground"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
-          <i className={`fa-solid ${menuOpen ? "fa-xmark" : "fa-bars"}`} />
+          <i className={`fa-solid ${menuOpen ? "fa-xmark" : "fa-bars"} text-xl`} />
         </button>
       </div>
 
@@ -136,20 +150,27 @@ const Header = () => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            className="md:hidden overflow-hidden bg-background"
+            transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+            className="lg:hidden overflow-hidden border-t border-border"
           >
-            <div className="flex flex-col items-center gap-4 py-4">
+            <div className="flex flex-col items-center gap-5 py-6 bg-background">
               {NAV_LINKS.map((l) => (
                 <a
                   key={l.label}
                   href={l.href}
-                  className="font-heading text-ec-mid hover:text-primary"
+                  className="font-heading text-xs tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground"
                   onClick={() => setMenuOpen(false)}
                 >
                   {l.label}
                 </a>
               ))}
+              <a
+                href="#contact"
+                className="font-heading text-xs tracking-[0.15em] uppercase px-6 py-2.5 rounded-md bg-accent text-accent-foreground"
+                onClick={() => setMenuOpen(false)}
+              >
+                Enquire
+              </a>
             </div>
           </motion.nav>
         )}
@@ -163,78 +184,102 @@ const Header = () => {
    ═══════════════════════════════════════════════ */
 const Hero = () => {
   const { scrollY } = useScroll();
-  const bgY = useTransform(scrollY, [0, 600], [0, 150]);
+  const bgY = useTransform(scrollY, [0, 800], [0, 200]);
+  const overlayOpacity = useTransform(scrollY, [0, 400], [0.25, 0.5]);
+  const textY = useTransform(scrollY, [0, 600], [0, 80]);
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
+    <section className="relative h-screen overflow-hidden">
       <motion.div
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage:
-            "url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600)",
+            "url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80)",
           y: bgY,
+          scale: 1.1,
         }}
       />
-      <div className="absolute inset-0" style={{ backgroundColor: "rgba(250,249,247,0.42)" }} />
+      <motion.div
+        className="absolute inset-0 bg-accent"
+        style={{ opacity: overlayOpacity }}
+      />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 py-32 flex flex-col md:flex-row items-center gap-12 w-full">
-        {/* Portrait */}
+      <motion.div
+        className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6"
+        style={{ y: textY }}
+      >
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="flex-shrink-0"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <img
-            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600"
-            alt="Envision Creations designer"
-            className="w-64 h-64 rounded-full object-cover border-4 border-secondary"
-            style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}
-          />
+          <span className="font-heading text-xs tracking-[0.35em] uppercase text-accent-foreground/70 block mb-4">
+            Architecture · Design · Build
+          </span>
         </motion.div>
 
-        {/* Text */}
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-          className="text-center md:text-left"
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+          className="font-heading font-bold text-4xl sm:text-5xl md:text-7xl text-accent-foreground max-w-4xl leading-[1.1] mb-6"
         >
-          <motion.h2
-            variants={fadeUp}
-            className="font-heading font-bold text-4xl md:text-6xl text-foreground mb-4"
+          Where vision meets
+          <br />
+          <span className="text-primary-foreground/80">structure</span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+          className="font-body text-accent-foreground/60 text-base md:text-lg max-w-xl mb-10"
+        >
+          BDAA accredited building designers crafting bespoke homes
+          across Sydney — from concept to completion.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
+          className="flex flex-wrap gap-4 justify-center"
+        >
+          <motion.a
+            whileHover={{ y: -2 }}
+            href="#contact"
+            className="font-heading text-xs tracking-[0.15em] uppercase px-8 py-3.5 rounded-md bg-primary-foreground text-accent transition-all duration-300 hover:bg-primary-foreground/90"
           >
-            Envision Creations
-          </motion.h2>
-          <motion.p
-            variants={fadeUp}
-            className="font-body italic text-ec-mid text-xl mb-8"
+            Start Your Project
+          </motion.a>
+          <motion.a
+            whileHover={{ y: -2 }}
+            href="https://wa.me/61434182035"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-heading text-xs tracking-[0.15em] uppercase px-8 py-3.5 rounded-md border border-accent-foreground/30 text-accent-foreground hover:bg-accent-foreground/10 transition-all duration-300"
           >
-            Bringing Ideas &amp; Dreams to Life
-          </motion.p>
-          <motion.div variants={fadeUp} className="flex flex-wrap gap-4 justify-center md:justify-start">
-            <motion.a
-              whileHover={{ y: -4 }}
-              href="#contact"
-              className="font-heading text-sm px-8 py-3 rounded-full bg-primary text-primary-foreground"
-              style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}
-            >
-              Book a Consultation
-            </motion.a>
-            <motion.a
-              whileHover={{ y: -4 }}
-              href="https://wa.me/61434182035"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-heading text-sm px-8 py-3 rounded-full bg-whatsapp text-primary-foreground"
-              style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}
-            >
-              <i className="fa-brands fa-whatsapp mr-2" />
-              WhatsApp Us
-            </motion.a>
-          </motion.div>
+            <i className="fa-brands fa-whatsapp mr-2" />
+            WhatsApp
+          </motion.a>
         </motion.div>
-      </div>
+      </motion.div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          className="w-5 h-8 rounded-full border-2 border-accent-foreground/30 flex items-start justify-center pt-1.5"
+        >
+          <div className="w-1 h-1.5 rounded-full bg-accent-foreground/50" />
+        </motion.div>
+      </motion.div>
     </section>
   );
 };
@@ -243,47 +288,60 @@ const Hero = () => {
    ABOUT
    ═══════════════════════════════════════════════ */
 const About = () => (
-  <section id="about" className="bg-ec-alt py-20">
-    <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-      <motion.div
-        variants={slideLeft}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        <span className="inline-block font-body text-sm px-4 py-1 rounded-full bg-primary text-primary-foreground mb-4">
-          BDAA Accredited
-        </span>
-        <h2 className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-6">
-          Our Story &amp; Vision
-        </h2>
-        <div className="font-body text-ec-mid space-y-4 leading-relaxed">
-          <p>
-            Envision Creations is a BDAA Accredited Building Designer Service. At Envision Creations,
-            we believe that art and design have the power to inspire and transform. We aim to help people
-            bring their creative visions to life.
-          </p>
-          <p>
-            Our vision is to redefine design by merging functionality with artistic expression. We
-            believe every space should tell a story and reflect the unique identity of its inhabitants.
-          </p>
-        </div>
-        <p className="font-body text-sm text-muted-foreground mt-6">ABN 99 689 825 036</p>
-      </motion.div>
+  <section id="about" className="py-24 md:py-32">
+    <div className="max-w-7xl mx-auto px-6">
+      <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <motion.div
+          variants={slideIn("left")}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <span className="font-heading text-xs tracking-[0.3em] uppercase text-primary mb-6 block">
+            About Us
+          </span>
+          <h2 className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-8 leading-tight">
+            Design with
+            <br />purpose &amp; precision
+          </h2>
+          <div className="font-body text-muted-foreground space-y-5 leading-relaxed text-[15px]">
+            <p>
+              Envision Creations is a BDAA Accredited Building Designer Service.
+              We believe that architecture has the power to shape how people live,
+              feel, and connect with their environment.
+            </p>
+            <p>
+              Our vision is to redefine residential design by merging functionality
+              with artistic expression — every space should tell a story and reflect
+              the unique identity of its inhabitants.
+            </p>
+          </div>
+          <div className="flex items-center gap-4 mt-8">
+            <span className="inline-block font-heading text-[10px] tracking-[0.2em] uppercase px-4 py-2 rounded bg-muted text-muted-foreground">
+              BDAA Accredited
+            </span>
+            <span className="font-body text-xs text-muted-foreground">
+              ABN 99 689 825 036
+            </span>
+          </div>
+        </motion.div>
 
-      <motion.div
-        variants={slideRight}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        <img
-          src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800"
-          alt="Architectural design"
-          className="w-full rounded-4xl object-cover"
-          style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}
-        />
-      </motion.div>
+        <motion.div
+          variants={slideIn("right")}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="relative"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80"
+            alt="Modern architectural design"
+            className="w-full h-[500px] object-cover rounded-lg"
+          />
+          {/* Decorative offset frame */}
+          <div className="absolute -bottom-4 -right-4 w-full h-full border border-primary/30 rounded-lg -z-10" />
+        </motion.div>
+      </div>
     </div>
   </section>
 );
@@ -292,36 +350,45 @@ const About = () => (
    PROCESS
    ═══════════════════════════════════════════════ */
 const Process = () => (
-  <section id="process" className="py-20 bg-background">
-    <div className="max-w-7xl mx-auto px-4">
-      <motion.h2
+  <section id="process" className="py-24 md:py-32 bg-accent">
+    <div className="max-w-7xl mx-auto px-6">
+      <motion.div
         variants={fadeUp}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="font-heading font-bold text-3xl md:text-4xl text-center text-foreground mb-12"
+        className="text-center mb-16"
       >
-        Our Process
-      </motion.h2>
+        <span className="font-heading text-xs tracking-[0.3em] uppercase text-accent-foreground/50 block mb-4">
+          How We Work
+        </span>
+        <h2 className="font-heading font-bold text-3xl md:text-4xl text-accent-foreground">
+          Our Process
+        </h2>
+      </motion.div>
 
       <motion.div
-        variants={staggerContainer}
+        variants={stagger}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+        className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-accent-foreground/10 rounded-lg overflow-hidden"
       >
-        {PROCESS_CARDS.map((c) => (
+        {PROCESS_STEPS.map((s) => (
           <motion.div
-            key={c.title}
+            key={s.num}
             variants={fadeUp}
-            whileHover={{ scale: 1.03 }}
-            className="bg-background rounded-3xl p-8 text-center"
-            style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}
+            className="bg-accent p-8 group"
           >
-            <span className="text-4xl block mb-4">{c.icon}</span>
-            <h3 className="font-heading font-semibold text-foreground mb-2">{c.title}</h3>
-            <p className="font-body text-ec-mid text-sm">{c.desc}</p>
+            <span className="font-heading text-3xl font-bold text-accent-foreground/15 block mb-4 group-hover:text-primary-foreground/40 transition-colors duration-500">
+              {s.num}
+            </span>
+            <h3 className="font-heading font-semibold text-accent-foreground text-sm tracking-wide uppercase mb-3">
+              {s.title}
+            </h3>
+            <p className="font-body text-accent-foreground/60 text-sm leading-relaxed">
+              {s.desc}
+            </p>
           </motion.div>
         ))}
       </motion.div>
@@ -331,60 +398,67 @@ const Process = () => (
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="font-body italic text-ec-mid text-center mt-12 text-lg max-w-2xl mx-auto"
+        className="font-body italic text-accent-foreground/50 text-center mt-14 text-base max-w-2xl mx-auto"
       >
-        "Right from initial concept to DA/CDC/CC approval — we walk the journey with you."
+        "From initial concept to council approval — we walk the journey with you."
       </motion.p>
     </div>
   </section>
 );
 
 /* ═══════════════════════════════════════════════
-   WHAT TO EXPECT (SERVICES)
+   SERVICES
    ═══════════════════════════════════════════════ */
 const Services = () => (
-  <section id="services" className="bg-ec-alt py-20">
-    <div className="max-w-7xl mx-auto px-4">
-      <motion.h2
+  <section id="services" className="py-24 md:py-32">
+    <div className="max-w-7xl mx-auto px-6">
+      <motion.div
         variants={fadeUp}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="font-heading font-bold text-3xl md:text-4xl text-center text-foreground mb-4"
+        className="text-center mb-16"
       >
-        What to Expect
-      </motion.h2>
-      <motion.p
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="font-body text-ec-mid text-center max-w-3xl mx-auto mb-12 leading-relaxed"
-      >
-        With in-depth experience in planning and custom home designing, Envision Creations offers modern
-        house elevations, bespoke layouts, and tailored designs suiting individual's unique lifestyle and
-        choices. Every project receives personal attention.
-      </motion.p>
+        <span className="font-heading text-xs tracking-[0.3em] uppercase text-primary block mb-4">
+          What We Offer
+        </span>
+        <h2 className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-5">
+          What to Expect
+        </h2>
+        <p className="font-body text-muted-foreground max-w-2xl mx-auto text-[15px] leading-relaxed">
+          With in-depth experience in planning and custom home design, every project
+          receives our full attention — from bespoke floor plans to modern elevations.
+        </p>
+      </motion.div>
 
       <motion.div
-        variants={staggerContainer}
+        variants={stagger}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
+        className="grid md:grid-cols-3 gap-8"
       >
         {SERVICE_CARDS.map((c) => (
           <motion.div
             key={c.title}
             variants={fadeUp}
-            whileHover={{ scale: 1.03 }}
-            className="bg-card rounded-3xl overflow-hidden"
-            style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}
+            whileHover={{ y: -6 }}
+            className="group cursor-pointer"
           >
-            <img src={c.img} alt={c.title} className="w-full h-52 object-cover" loading="lazy" />
-            <div className="p-6">
-              <h3 className="font-heading font-semibold text-foreground">{c.title}</h3>
+            <div className="overflow-hidden rounded-lg mb-5">
+              <motion.img
+                src={c.img}
+                alt={c.title}
+                className="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
             </div>
+            <h3 className="font-heading font-semibold text-foreground text-sm tracking-wide uppercase mb-2">
+              {c.title}
+            </h3>
+            <p className="font-body text-muted-foreground text-sm leading-relaxed">
+              {c.desc}
+            </p>
           </motion.div>
         ))}
       </motion.div>
@@ -396,36 +470,45 @@ const Services = () => (
    GALLERY
    ═══════════════════════════════════════════════ */
 const Gallery = () => {
-  const placeholders = Array.from({ length: 12 });
+  const placeholders = Array.from({ length: 9 });
 
   return (
-    <section id="gallery" className="py-20 bg-background">
-      <div className="max-w-7xl mx-auto px-4">
-        <motion.h2
+    <section id="gallery" className="py-24 md:py-32 bg-muted">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="font-heading font-bold text-3xl md:text-4xl text-center text-foreground mb-12"
+          className="text-center mb-16"
         >
-          Our Work
-        </motion.h2>
+          <span className="font-heading text-xs tracking-[0.3em] uppercase text-primary block mb-4">
+            Portfolio
+          </span>
+          <h2 className="font-heading font-bold text-3xl md:text-4xl text-foreground">
+            Our Work
+          </h2>
+        </motion.div>
 
         <motion.div
-          variants={staggerContainer}
+          variants={stagger}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6"
+          className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4"
         >
           {galleryImages.length > 0
             ? galleryImages.map((src, i) => (
-                <motion.div key={i} variants={fadeUp} whileHover={{ scale: 1.03 }} className="break-inside-avoid">
+                <motion.div
+                  key={i}
+                  variants={fadeUp}
+                  whileHover={{ scale: 1.015 }}
+                  className="break-inside-avoid overflow-hidden rounded-lg"
+                >
                   <img
                     src={src}
                     alt={`Project ${i + 1}`}
-                    className="w-full rounded-3xl object-cover"
-                    style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}
+                    className="w-full object-cover"
                     loading="lazy"
                   />
                 </motion.div>
@@ -434,12 +517,11 @@ const Gallery = () => {
                 <motion.div
                   key={i}
                   variants={fadeUp}
-                  whileHover={{ scale: 1.03 }}
-                  className="break-inside-avoid bg-ec-alt rounded-3xl flex flex-col items-center justify-center"
-                  style={{ height: 280, boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}
+                  className="break-inside-avoid bg-background rounded-lg flex flex-col items-center justify-center"
+                  style={{ height: i % 3 === 0 ? 320 : i % 3 === 1 ? 240 : 280 }}
                 >
-                  <span className="text-4xl mb-2">📷</span>
-                  <span className="font-body text-ec-mid text-sm">Image coming soon</span>
+                  <span className="text-3xl mb-2 opacity-20">📷</span>
+                  <span className="font-body text-muted-foreground text-xs">Coming soon</span>
                 </motion.div>
               ))}
         </motion.div>
@@ -452,36 +534,47 @@ const Gallery = () => {
    HOURS & MAP
    ═══════════════════════════════════════════════ */
 const HoursMap = () => (
-  <section className="bg-ec-alt py-20">
-    <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-start">
+  <section className="py-24 md:py-32">
+    <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-start">
       <motion.div
-        variants={slideLeft}
+        variants={slideIn("left")}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="bg-ec-alt rounded-4xl p-8"
-        style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}
+        className="bg-muted rounded-lg p-10"
       >
-        <h2 className="font-heading font-bold text-2xl text-foreground mb-6">Visit Us</h2>
-        <div className="font-body text-ec-mid space-y-3 text-sm">
-          <p>📍 7 Casamia Glade, Tallawong NSW 2762, Australia</p>
-          <p>📞 +61 434 182 035</p>
-          <p>✉️ sandhya@envisioncreations.com.au</p>
-          <p>🕐 Mon–Fri, 09:00 am – 06:00 pm</p>
+        <h2 className="font-heading font-bold text-2xl text-foreground mb-8">Visit Us</h2>
+        <div className="font-body text-muted-foreground space-y-4 text-sm">
+          <div className="flex items-start gap-3">
+            <i className="fa-solid fa-location-dot text-primary mt-0.5" />
+            <span>7 Casamia Glade, Tallawong NSW 2762, Australia</span>
+          </div>
+          <div className="flex items-start gap-3">
+            <i className="fa-solid fa-phone text-primary mt-0.5" />
+            <span>+61 434 182 035</span>
+          </div>
+          <div className="flex items-start gap-3">
+            <i className="fa-solid fa-envelope text-primary mt-0.5" />
+            <span>sandhya@envisioncreations.com.au</span>
+          </div>
+          <div className="flex items-start gap-3">
+            <i className="fa-solid fa-clock text-primary mt-0.5" />
+            <span>Mon – Fri, 9:00 am – 6:00 pm</span>
+          </div>
         </div>
         <motion.a
-          whileHover={{ y: -4 }}
+          whileHover={{ y: -2 }}
           href="https://maps.google.com/?q=7+Casamia+Glade+Tallawong+NSW+2762"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block mt-6 font-heading text-sm px-6 py-3 rounded-full bg-primary text-primary-foreground"
+          className="inline-block mt-8 font-heading text-xs tracking-[0.15em] uppercase px-6 py-3 rounded-md bg-accent text-accent-foreground transition-colors"
         >
           Get Directions
         </motion.a>
       </motion.div>
 
       <motion.div
-        variants={slideRight}
+        variants={slideIn("right")}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
@@ -489,8 +582,8 @@ const HoursMap = () => (
         <iframe
           title="Envision Creations Location"
           src="https://maps.google.com/maps?q=7+Casamia+Glade+Tallawong+NSW+2762&output=embed"
-          className="w-full rounded-3xl"
-          style={{ height: 380, border: 0, boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}
+          className="w-full rounded-lg"
+          style={{ height: 420, border: 0 }}
           loading="lazy"
           allowFullScreen
         />
@@ -503,39 +596,37 @@ const HoursMap = () => (
    BOOKING
    ═══════════════════════════════════════════════ */
 const Booking = () => (
-  <section id="booking" className="bg-ec-alt py-20">
-    <div className="max-w-4xl mx-auto px-4 text-center">
-      <motion.h2
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-4"
-      >
-        Book an Appointment
-      </motion.h2>
-      <motion.p
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="font-body text-ec-mid mb-8"
-      >
-        Schedule a consultation at your convenience.
-      </motion.p>
+  <section id="booking" className="py-24 md:py-32 bg-muted">
+    <div className="max-w-4xl mx-auto px-6">
       <motion.div
         variants={fadeUp}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="rounded-3xl overflow-hidden"
-        style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}
+        className="text-center mb-10"
+      >
+        <span className="font-heading text-xs tracking-[0.3em] uppercase text-primary block mb-4">
+          Schedule
+        </span>
+        <h2 className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-3">
+          Book a Consultation
+        </h2>
+        <p className="font-body text-muted-foreground text-[15px]">
+          Schedule a time that works for you.
+        </p>
+      </motion.div>
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="rounded-lg overflow-hidden bg-card"
       >
         {/* NOTE: Replace src with actual cal.com booking URL */}
         <iframe
           title="Book Appointment"
           src="https://cal.com"
-          className="w-full rounded-3xl"
+          className="w-full"
           style={{ height: 600, border: 0 }}
           loading="lazy"
         />
@@ -556,38 +647,38 @@ const Contact = () => {
     /* TODO: Wire to Brevo/Sendinblue API */
   };
 
-  const inputBase =
-    "w-full rounded-2xl border border-secondary px-4 py-3 font-body text-foreground focus:outline-none focus:ring-2 focus:ring-primary bg-card";
+  const inputCls =
+    "w-full rounded-md border border-border bg-card px-4 py-3 font-body text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 transition-shadow";
 
   return (
-    <section id="contact" className="py-20 bg-background">
-      <div className="max-w-7xl mx-auto px-4">
-        <motion.h2
+    <section id="contact" className="py-24 md:py-32">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="font-heading font-bold text-3xl md:text-4xl text-center text-foreground mb-2"
+          className="text-center mb-16"
         >
-          Get In Touch
-        </motion.h2>
-        <motion.p
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="font-body text-ec-mid text-center mb-12"
-        >
-          We'd love to hear about your project.
-        </motion.p>
+          <span className="font-heading text-xs tracking-[0.3em] uppercase text-primary block mb-4">
+            Get in Touch
+          </span>
+          <h2 className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-3">
+            Let's Talk
+          </h2>
+          <p className="font-body text-muted-foreground text-[15px]">
+            We'd love to hear about your project.
+          </p>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-10">
+        <div className="grid lg:grid-cols-5 gap-12">
           {/* Form */}
           <motion.div
-            variants={slideLeft}
+            variants={slideIn("left")}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
+            className="lg:col-span-3"
           >
             <AnimatePresence mode="wait">
               {submitted ? (
@@ -596,36 +687,38 @@ const Contact = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
-                  className="bg-ec-alt rounded-3xl p-12 text-center"
-                  style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}
+                  className="bg-muted rounded-lg p-14 text-center"
                 >
-                  <span className="text-5xl block mb-4">✅</span>
-                  <p className="font-heading text-xl text-foreground">Thank you! We'll be in touch soon.</p>
+                  <i className="fa-solid fa-check-circle text-4xl text-primary mb-4 block" />
+                  <p className="font-heading text-lg text-foreground">Thank you! We'll be in touch soon.</p>
                 </motion.div>
               ) : (
                 <motion.form
                   key="form"
                   onSubmit={handleSubmit}
-                  className="space-y-4"
+                  className="space-y-5"
                   initial={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  <input type="text" placeholder="Full Name" required className={inputBase} />
-                  <input type="email" placeholder="Email" required className={inputBase} />
-                  <input type="tel" placeholder="Phone" className={inputBase} />
-                  <select required className={inputBase}>
-                    <option value="">Project Type</option>
-                    <option>New Home</option>
-                    <option>Renovation</option>
-                    <option>Extension</option>
-                    <option>Other</option>
-                  </select>
-                  <textarea placeholder="Message" rows={5} className={inputBase} />
+                  <div className="grid sm:grid-cols-2 gap-5">
+                    <input type="text" placeholder="Full Name" required className={inputCls} />
+                    <input type="email" placeholder="Email" required className={inputCls} />
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-5">
+                    <input type="tel" placeholder="Phone" className={inputCls} />
+                    <select required className={inputCls}>
+                      <option value="">Project Type</option>
+                      <option>New Home</option>
+                      <option>Renovation</option>
+                      <option>Extension</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <textarea placeholder="Tell us about your project..." rows={5} className={inputCls} />
                   <motion.button
-                    whileHover={{ y: -4 }}
+                    whileHover={{ y: -2 }}
                     type="submit"
-                    className="w-full font-heading text-sm px-8 py-4 rounded-2xl bg-primary text-primary-foreground"
-                    style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}
+                    className="w-full font-heading text-xs tracking-[0.15em] uppercase px-8 py-4 rounded-md bg-accent text-accent-foreground hover:bg-accent/90 transition-colors"
                   >
                     Send Message
                   </motion.button>
@@ -634,29 +727,44 @@ const Contact = () => {
             </AnimatePresence>
           </motion.div>
 
-          {/* Contact card */}
+          {/* Contact info */}
           <motion.div
-            variants={slideRight}
+            variants={slideIn("right")}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="bg-ec-alt rounded-4xl p-8"
-            style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}
+            className="lg:col-span-2"
           >
-            <h3 className="font-heading font-bold text-xl text-foreground mb-6">Contact Details</h3>
-            <div className="font-body text-ec-mid space-y-3 text-sm mb-8">
-              <p>📍 7 Casamia Glade, Tallawong NSW 2762, Australia</p>
-              <p>📞 +61 434 182 035</p>
-              <p>✉️ sandhya@envisioncreations.com.au</p>
-              <p>🕐 Mon–Fri, 09:00 am – 06:00 pm</p>
+            <div className="bg-muted rounded-lg p-8 mb-6">
+              <h3 className="font-heading font-semibold text-foreground text-sm tracking-wide uppercase mb-6">
+                Contact Details
+              </h3>
+              <div className="font-body text-muted-foreground space-y-4 text-sm">
+                <div className="flex items-start gap-3">
+                  <i className="fa-solid fa-location-dot text-primary mt-0.5" />
+                  <span>7 Casamia Glade, Tallawong NSW 2762, Australia</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <i className="fa-solid fa-phone text-primary mt-0.5" />
+                  <span>+61 434 182 035</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <i className="fa-solid fa-envelope text-primary mt-0.5" />
+                  <span>sandhya@envisioncreations.com.au</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <i className="fa-solid fa-clock text-primary mt-0.5" />
+                  <span>Mon – Fri, 9:00 am – 6:00 pm</span>
+                </div>
+              </div>
             </div>
+
             <motion.a
-              whileHover={{ y: -4 }}
+              whileHover={{ y: -2 }}
               href="https://wa.me/61434182035"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-heading text-sm px-8 py-3 rounded-full bg-whatsapp text-primary-foreground"
-              style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}
+              className="flex items-center justify-center gap-3 w-full font-heading text-xs tracking-[0.15em] uppercase px-6 py-4 rounded-md bg-whatsapp text-primary-foreground transition-colors"
             >
               <i className="fa-brands fa-whatsapp text-lg" />
               WhatsApp Us
@@ -672,36 +780,48 @@ const Contact = () => {
    FOOTER
    ═══════════════════════════════════════════════ */
 const Footer = () => (
-  <footer className="bg-foreground py-14">
-    <div className="max-w-7xl mx-auto px-4 grid sm:grid-cols-3 gap-10 text-sm">
+  <footer className="bg-accent py-16">
+    <div className="max-w-7xl mx-auto px-6 grid sm:grid-cols-3 gap-12">
       <div>
-        <img src={logoImg} alt="Envision Creations logo" className="w-48 mb-4 rounded-lg" />
-        <p className="font-body text-secondary">Bringing Ideas &amp; Dreams to Life</p>
-        <p className="font-body text-muted-foreground mt-2 text-xs">ABN 99 689 825 036</p>
+        <img src={logoImg} alt="Envision Creations" className="h-12 object-contain mb-4 brightness-0 invert opacity-80" />
+        <p className="font-body text-accent-foreground/50 text-sm leading-relaxed">
+          Bringing Ideas &amp; Dreams to Life
+        </p>
+        <p className="font-body text-accent-foreground/30 mt-3 text-xs">
+          ABN 99 689 825 036
+        </p>
       </div>
       <div>
-        <h4 className="font-heading font-semibold text-secondary mb-4">Quick Links</h4>
-        <div className="flex flex-col gap-2">
+        <h4 className="font-heading text-xs tracking-[0.2em] uppercase text-accent-foreground/60 mb-5">
+          Navigation
+        </h4>
+        <div className="flex flex-col gap-3">
           {NAV_LINKS.map((l) => (
-            <a key={l.label} href={l.href} className="font-body text-muted-foreground hover:text-secondary transition-colors">
+            <a
+              key={l.label}
+              href={l.href}
+              className="font-body text-accent-foreground/40 hover:text-accent-foreground/80 transition-colors text-sm"
+            >
               {l.label}
             </a>
           ))}
         </div>
       </div>
       <div>
-        <h4 className="font-heading font-semibold text-secondary mb-4">Contact</h4>
-        <div className="font-body text-muted-foreground space-y-2">
-          <p>📍 7 Casamia Glade, Tallawong NSW 2762</p>
-          <p>📞 +61 434 182 035</p>
-          <p>✉️ sandhya@envisioncreations.com.au</p>
+        <h4 className="font-heading text-xs tracking-[0.2em] uppercase text-accent-foreground/60 mb-5">
+          Contact
+        </h4>
+        <div className="font-body text-accent-foreground/40 space-y-3 text-sm">
+          <p>7 Casamia Glade, Tallawong NSW 2762</p>
+          <p>+61 434 182 035</p>
+          <p>sandhya@envisioncreations.com.au</p>
         </div>
-        <div className="flex gap-4 mt-4">
+        <div className="flex gap-5 mt-6">
           {["fa-facebook-f", "fa-instagram", "fa-linkedin-in"].map((icon) => (
             <a
               key={icon}
               href="#"
-              className="text-primary hover:text-secondary transition-colors text-lg"
+              className="text-accent-foreground/30 hover:text-accent-foreground/70 transition-colors"
             >
               <i className={`fa-brands ${icon}`} />
             </a>
@@ -709,8 +829,8 @@ const Footer = () => (
         </div>
       </div>
     </div>
-    <div className="max-w-7xl mx-auto px-4 mt-10 pt-6 border-t border-muted-foreground/20 text-center">
-      <p className="font-body text-muted-foreground text-xs">
+    <div className="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-accent-foreground/10 text-center">
+      <p className="font-body text-accent-foreground/30 text-xs">
         © 2025 Envision Creations Pty Ltd · ABN 99 689 825 036
       </p>
     </div>
