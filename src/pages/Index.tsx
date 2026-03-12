@@ -177,7 +177,7 @@ const Hero = () => {
   const textY = useTransform(scrollY, [0, 600], [0, 80]);
 
   return (
-    <section className="relative h-[85vh] overflow-hidden">
+    <section className="relative min-h-[calc(100vh-theme(spacing.24)-theme(spacing.12))] md:min-h-[calc(100vh-theme(spacing.36)-theme(spacing.12))] overflow-hidden">
       <motion.div
         className="absolute inset-0 bg-cover bg-center"
         style={{
