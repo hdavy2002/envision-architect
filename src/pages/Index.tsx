@@ -78,104 +78,93 @@ const slideIn = (dir: "left" | "right") => ({
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { scrollY } = useScroll();
-  const logoH = useTransform(scrollY, [0, 200], [56, 36]);
   const headerBg = useTransform(scrollY, [0, 80], [0, 1]);
 
   return (
-    <motion.header
-      className="fixed top-0 left-0 w-full z-50"
-      style={{
-        backgroundColor: useTransform(headerBg, (v) => `hsla(30,10%,98%,${0.6 + v * 0.4})`),
-        backdropFilter: useTransform(headerBg, (v) => `blur(${v * 16}px)`),
-        borderBottom: useTransform(headerBg, (v) => `1px solid hsla(30,10%,86%,${v * 0.5})`),
-      }}
-    >
-      <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-        {/* Left nav - desktop */}
-        <nav className="hidden lg:flex items-center gap-8 flex-1">
-          {NAV_LINKS.slice(0, 3).map((l) => (
-            <a
-              key={l.label}
-              href={l.href}
-              className="font-heading text-xs tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground transition-colors duration-300"
-            >
-              {l.label}
-            </a>
-          ))}
-        </nav>
-
-        {/* Center logo */}
-        <a href="#" className="flex-shrink-0">
-          <motion.img
+    <>
+      {/* Large logo banner — white bg */}
+      <div className="bg-card flex items-center justify-center py-8 md:py-10">
+        <a href="#">
+          <img
             src={logoImg}
             alt="Envision Creations"
-            style={{ height: logoH }}
-            className="object-contain"
+            className="h-24 sm:h-28 md:h-36 object-contain"
           />
         </a>
-
-        {/* Right nav - desktop */}
-        <nav className="hidden lg:flex items-center gap-8 flex-1 justify-end">
-          {NAV_LINKS.slice(3).map((l) => (
-            <a
-              key={l.label}
-              href={l.href}
-              className="font-heading text-xs tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground transition-colors duration-300"
-            >
-              {l.label}
-            </a>
-          ))}
-          <motion.a
-            whileHover={{ scale: 1.02 }}
-            href="#contact"
-            className="font-heading text-xs tracking-[0.15em] uppercase px-5 py-2 rounded-md bg-accent text-accent-foreground"
-          >
-            Enquire
-          </motion.a>
-        </nav>
-
-        {/* Mobile hamburger */}
-        <button
-          className="lg:hidden text-foreground"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <i className={`fa-solid ${menuOpen ? "fa-xmark" : "fa-bars"} text-xl`} />
-        </button>
       </div>
 
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.nav
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-            className="lg:hidden overflow-hidden border-t border-border"
+      {/* Sticky nav bar */}
+      <motion.nav
+        className="sticky top-0 left-0 w-full z-50"
+        style={{
+          backgroundColor: useTransform(headerBg, (v) => `hsla(30,10%,98%,${0.85 + v * 0.15})`),
+          backdropFilter: useTransform(headerBg, (v) => `blur(${v * 16}px)`),
+          borderBottom: useTransform(headerBg, (v) => `1px solid hsla(30,10%,86%,${v * 0.5})`),
+        }}
+      >
+        <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-center relative">
+          <div className="hidden lg:flex items-center gap-10">
+            {NAV_LINKS.map((l) => (
+              <a
+                key={l.label}
+                href={l.href}
+                className="font-heading text-xs tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground transition-colors duration-300"
+              >
+                {l.label}
+              </a>
+            ))}
+            <motion.a
+              whileHover={{ scale: 1.02 }}
+              href="#contact"
+              className="font-heading text-xs tracking-[0.15em] uppercase px-5 py-2 rounded bg-accent text-accent-foreground"
+            >
+              Enquire
+            </motion.a>
+          </div>
+
+          <button
+            className="lg:hidden absolute right-6 text-foreground"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
           >
-            <div className="flex flex-col items-center gap-5 py-6 bg-background">
-              {NAV_LINKS.map((l) => (
+            <i className={`fa-solid ${menuOpen ? "fa-xmark" : "fa-bars"} text-xl`} />
+          </button>
+          <span className="lg:hidden font-heading text-xs tracking-[0.2em] uppercase text-foreground">Menu</span>
+        </div>
+
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+              className="lg:hidden overflow-hidden border-t border-border"
+            >
+              <div className="flex flex-col items-center gap-5 py-6 bg-background">
+                {NAV_LINKS.map((l) => (
+                  <a
+                    key={l.label}
+                    href={l.href}
+                    className="font-heading text-xs tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {l.label}
+                  </a>
+                ))}
                 <a
-                  key={l.label}
-                  href={l.href}
-                  className="font-heading text-xs tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground"
+                  href="#contact"
+                  className="font-heading text-xs tracking-[0.15em] uppercase px-6 py-2.5 rounded bg-accent text-accent-foreground"
                   onClick={() => setMenuOpen(false)}
                 >
-                  {l.label}
+                  Enquire
                 </a>
-              ))}
-              <a
-                href="#contact"
-                className="font-heading text-xs tracking-[0.15em] uppercase px-6 py-2.5 rounded-md bg-accent text-accent-foreground"
-                onClick={() => setMenuOpen(false)}
-              >
-                Enquire
-              </a>
-            </div>
-          </motion.nav>
-        )}
-      </AnimatePresence>
-    </motion.header>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.nav>
+    </>
   );
 };
 
@@ -185,11 +174,10 @@ const Header = () => {
 const Hero = () => {
   const { scrollY } = useScroll();
   const bgY = useTransform(scrollY, [0, 800], [0, 200]);
-  const overlayOpacity = useTransform(scrollY, [0, 400], [0.25, 0.5]);
   const textY = useTransform(scrollY, [0, 600], [0, 80]);
 
   return (
-    <section className="relative h-screen overflow-hidden">
+    <section className="relative h-[85vh] overflow-hidden">
       <motion.div
         className="absolute inset-0 bg-cover bg-center"
         style={{
@@ -199,10 +187,7 @@ const Hero = () => {
           scale: 1.1,
         }}
       />
-      <motion.div
-        className="absolute inset-0 bg-accent"
-        style={{ opacity: overlayOpacity }}
-      />
+      <div className="absolute inset-0 bg-ec-dark/60" />
 
       <motion.div
         className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6"
@@ -213,7 +198,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <span className="font-heading text-xs tracking-[0.35em] uppercase text-accent-foreground/70 block mb-4">
+          <span className="font-heading text-xs tracking-[0.35em] uppercase text-white/70 block mb-4">
             Architecture · Design · Build
           </span>
         </motion.div>
@@ -222,21 +207,18 @@ const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-          className="font-heading font-bold text-4xl sm:text-5xl md:text-7xl text-accent-foreground max-w-4xl leading-[1.1] mb-6"
+          className="font-heading font-bold text-3xl sm:text-4xl md:text-6xl text-white max-w-4xl leading-[1.15] mb-6"
         >
-          Where vision meets
-          <br />
-          <span className="text-primary-foreground/80">structure</span>
+          BDAA Accredited Building Designers Crafting Bespoke Homes Across Sydney
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
-          className="font-body text-accent-foreground/60 text-base md:text-lg max-w-xl mb-10"
+          className="font-body text-white/70 text-base md:text-lg max-w-xl mb-10"
         >
-          BDAA accredited building designers crafting bespoke homes
-          across Sydney — from concept to completion.
+          From concept to completion.
         </motion.p>
 
         <motion.div
@@ -248,7 +230,7 @@ const Hero = () => {
           <motion.a
             whileHover={{ y: -2 }}
             href="#contact"
-            className="font-heading text-xs tracking-[0.15em] uppercase px-8 py-3.5 rounded-md bg-primary-foreground text-accent transition-all duration-300 hover:bg-primary-foreground/90"
+            className="font-heading text-xs tracking-[0.15em] uppercase px-8 py-3.5 rounded bg-white text-ec-dark transition-all duration-300 hover:bg-white/90"
           >
             Start Your Project
           </motion.a>
@@ -257,15 +239,14 @@ const Hero = () => {
             href="https://wa.me/61434182035"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-heading text-xs tracking-[0.15em] uppercase px-8 py-3.5 rounded-md border border-accent-foreground/30 text-accent-foreground hover:bg-accent-foreground/10 transition-all duration-300"
+            className="font-heading text-xs tracking-[0.15em] uppercase px-8 py-3.5 rounded bg-whatsapp text-white transition-all duration-300 hover:opacity-90"
           >
             <i className="fa-brands fa-whatsapp mr-2" />
-            WhatsApp
+            WhatsApp Us
           </motion.a>
         </motion.div>
       </motion.div>
 
-      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -275,9 +256,9 @@ const Hero = () => {
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          className="w-5 h-8 rounded-full border-2 border-accent-foreground/30 flex items-start justify-center pt-1.5"
+          className="w-5 h-8 rounded-full border-2 border-white/30 flex items-start justify-center pt-1.5"
         >
-          <div className="w-1 h-1.5 rounded-full bg-accent-foreground/50" />
+          <div className="w-1 h-1.5 rounded-full bg-white/50" />
         </motion.div>
       </motion.div>
     </section>
