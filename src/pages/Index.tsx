@@ -178,7 +178,7 @@ const Hero = () => {
   const bgScale = useTransform(scrollY, [0, 800], [1, 1.1]);
 
   return (
-    <section className="relative h-[calc(100vh-5.5rem)] sm:h-[calc(100vh-8rem)] md:h-[calc(100vh-theme(spacing.36)-theme(spacing.12))] overflow-hidden">
+    <section className="relative h-screen overflow-hidden">
       {/* Full-screen background image */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center"
