@@ -470,8 +470,10 @@ const GALLERY_IMAGES = [
 const Gallery = () => {
   const [activeIdx, setActiveIdx] = useState(0);
   const thumbRef = useRef<HTMLDivElement>(null);
+  const hasInteracted = useRef(false);
 
   const scroll = (dir: "left" | "right") => {
+    hasInteracted.current = true;
     const next = dir === "left"
       ? Math.max(0, activeIdx - 1)
       : Math.min(GALLERY_IMAGES.length - 1, activeIdx + 1);
@@ -479,6 +481,7 @@ const Gallery = () => {
   };
 
   useEffect(() => {
+    if (!hasInteracted.current) return;
     if (thumbRef.current) {
       const thumb = thumbRef.current.children[activeIdx] as HTMLElement;
       if (thumb) {
