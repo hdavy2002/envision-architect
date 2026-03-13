@@ -559,7 +559,7 @@ const Gallery = () => {
             {GALLERY_IMAGES.map((src, i) => (
               <button
                 key={i}
-                onClick={() => setActiveIdx(i)}
+                onClick={() => { hasInteracted.current = true; setActiveIdx(i); }}
                 className={`shrink-0 w-16 h-11 sm:w-20 sm:h-14 md:w-24 md:h-16 rounded overflow-hidden border-2 transition-all duration-300 ${
                   i === activeIdx ? "border-primary scale-105" : "border-transparent opacity-60 hover:opacity-100"
                 }`}
