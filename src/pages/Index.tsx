@@ -8,6 +8,16 @@ import {
 import logoImg from "@/assets/logo.webp";
 import heroImg from "@/assets/hero-bg.webp";
 import galleryImg1 from "@/assets/gallery1.webp";
+import galleryImg2 from "@/assets/gallery2.webp";
+import galleryImg3 from "@/assets/gallery3.webp";
+import galleryImg4 from "@/assets/gallery4.webp";
+import galleryImg5 from "@/assets/gallery5.webp";
+import galleryImg6 from "@/assets/gallery6.webp";
+import galleryImg7 from "@/assets/gallery7.webp";
+import galleryImg8 from "@/assets/gallery8.webp";
+import galleryImg9 from "@/assets/gallery9.webp";
+import galleryImg10 from "@/assets/gallery10.webp";
+import galleryImg11 from "@/assets/gallery11.webp";
 
 /* ─── font & icon injection ─── */
 const useInjectHead = () => {
