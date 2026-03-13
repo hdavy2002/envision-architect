@@ -218,7 +218,7 @@ const Hero = () => {
         >
           Bringing
           <br />
-          <span className="italic font-normal text-primary">Ideas &amp; Dreams</span>
+          <span className="italic font-normal text-golden">Ideas &amp; Dreams</span>
           <br />
           to Life
         </motion.h1>

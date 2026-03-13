@@ -55,6 +55,7 @@ export default {
         "ec-dark": "hsl(var(--ec-dark))",
         "ec-mid": "hsl(var(--ec-mid))",
         "ec-alt": "hsl(var(--ec-alt-bg))",
+        golden: "hsl(var(--golden))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
