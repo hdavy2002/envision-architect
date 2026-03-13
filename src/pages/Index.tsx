@@ -6,6 +6,7 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import logoImg from "@/assets/logo.webp";
+import heroImg from "@/assets/hero-bg.webp";
 import galleryImg1 from "@/assets/gallery1.webp";
 
 /* ─── font & icon injection ─── */
