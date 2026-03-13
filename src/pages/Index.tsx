@@ -6,6 +6,7 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import logoImg from "@/assets/logo.webp";
+import heroImg from "@/assets/hero-bg.webp";
 import galleryImg1 from "@/assets/gallery1.webp";
 
 /* ─── font & icon injection ─── */
@@ -173,25 +174,37 @@ const Header = () => {
    ═══════════════════════════════════════════════ */
 const Hero = () => {
   const { scrollY } = useScroll();
-  const bgY = useTransform(scrollY, [0, 800], [0, 200]);
+  const bgY = useTransform(scrollY, [0, 800], [0, 150]);
+  const bgScale = useTransform(scrollY, [0, 800], [1, 1.1]);
 
   return (
-    <section className="relative min-h-[calc(100vh-5.5rem)] sm:min-h-[calc(100vh-8rem)] md:min-h-[calc(100vh-theme(spacing.36)-theme(spacing.12))] overflow-hidden flex">
-      {/* Left side — text content on dark */}
-      <div className="relative z-10 flex flex-col justify-center w-full lg:w-1/2 px-6 sm:px-10 md:px-16 lg:px-20 py-16 sm:py-20 bg-ec-dark">
-        {/* Decorative line */}
+    <section className="relative h-[calc(100vh-5.5rem)] sm:h-[calc(100vh-8rem)] md:h-[calc(100vh-theme(spacing.36)-theme(spacing.12))] overflow-hidden">
+      {/* Full-screen background image */}
+      <motion.div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${heroImg})`,
+          y: bgY,
+          scale: bgScale,
+        }}
+      />
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-ec-dark/90 via-ec-dark/40 to-transparent" />
+
+      {/* Text content — bottom-left */}
+      <div className="relative z-10 h-full flex flex-col justify-end px-6 sm:px-10 md:px-16 lg:px-20 pb-12 sm:pb-16 md:pb-20 max-w-7xl mx-auto">
         <motion.div
-          initial={{ scaleY: 0 }}
-          animate={{ scaleY: 1 }}
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
           transition={{ duration: 1.2, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-          className="absolute left-6 sm:left-10 md:left-16 lg:left-20 top-16 sm:top-20 w-px h-12 sm:h-16 bg-primary origin-top"
+          className="w-16 sm:w-20 h-px bg-primary origin-left mb-6 sm:mb-8"
         />
 
         <motion.span
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-          className="font-heading text-xs sm:text-sm tracking-[0.25em] uppercase text-primary mb-6 sm:mb-8 mt-10 sm:mt-12"
+          className="font-heading text-xs sm:text-sm tracking-[0.25em] uppercase text-primary mb-4 sm:mb-5"
         >
           Envision Creations
         </motion.span>
@@ -200,7 +213,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
-          className="font-heading font-bold text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-white leading-[1.1] mb-8 sm:mb-10"
+          className="font-heading font-bold text-4xl sm:text-5xl md:text-6xl lg:text-8xl text-white leading-[1.05] mb-6 sm:mb-8"
         >
           Bringing
           <br />
@@ -235,35 +248,12 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      {/* Right side — full image (tablet+) */}
-      <motion.div
-        className="hidden md:block w-1/2 lg:w-1/2 bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80)",
-          y: bgY,
-        }}
-      />
-
-      {/* Mobile background image with gradient overlay */}
-      <div className="md:hidden absolute inset-0 -z-10">
-        <motion.div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage:
-              "url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80)",
-            y: bgY,
-          }}
-        />
-        <div className="absolute inset-0 bg-ec-dark/85" />
-      </div>
-
       {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-6 sm:bottom-8 left-6 sm:left-10 md:left-16 lg:left-20 z-10"
+        className="absolute bottom-6 sm:bottom-8 right-6 sm:right-10 md:right-16 lg:right-20 z-10"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
