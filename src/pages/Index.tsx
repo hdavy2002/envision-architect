@@ -178,7 +178,7 @@ const Hero = () => {
   const bgScale = useTransform(scrollY, [0, 800], [1, 1.1]);
 
   return (
-    <section className="relative h-screen overflow-hidden">
+    <section className="relative h-[110vh] overflow-hidden">
       {/* Full-screen background image */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center"
@@ -192,7 +192,7 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-t from-ec-dark/90 via-ec-dark/40 to-transparent" />
 
       {/* Text content — bottom-left */}
-      <div className="relative z-10 h-full flex flex-col justify-end px-6 sm:px-10 md:px-16 lg:px-20 pb-12 sm:pb-16 md:pb-20 max-w-7xl mx-auto">
+      <div className="relative z-10 h-full flex flex-col justify-end px-6 sm:px-10 md:px-16 lg:px-20 pb-12 sm:pb-16 md:pb-24 max-w-7xl mx-auto">
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
@@ -200,19 +200,10 @@ const Hero = () => {
           className="w-16 sm:w-20 h-px bg-primary origin-left mb-6 sm:mb-8"
         />
 
-        <motion.span
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-          className="font-heading text-xs sm:text-sm tracking-[0.25em] uppercase text-primary mb-4 sm:mb-5"
-        >
-          Envision Creations
-        </motion.span>
-
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+          transition={{ duration: 1, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
           className="font-heading font-bold text-4xl sm:text-5xl md:text-6xl lg:text-8xl text-white leading-[1.05] mb-6 sm:mb-8"
         >
           Bringing
@@ -225,7 +216,7 @@ const Hero = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1, ease: "easeOut" }}
+          transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
           className="flex flex-col sm:flex-row gap-3 sm:gap-4"
         >
           <motion.a
@@ -252,7 +243,7 @@ const Hero = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
+        transition={{ delay: 1.2 }}
         className="absolute bottom-6 sm:bottom-8 right-6 sm:right-10 md:right-16 lg:right-20 z-10"
       >
         <motion.div
