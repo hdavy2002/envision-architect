@@ -455,14 +455,16 @@ const Services = () => (
    ═══════════════════════════════════════════════ */
 const GALLERY_IMAGES = [
   galleryImg1,
-  "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1200&q=80",
-  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
-  "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1200&q=80",
-  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80",
-  "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80",
-  "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1200&q=80",
-  "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=1200&q=80",
-  "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&q=80",
+  galleryImg2,
+  galleryImg3,
+  galleryImg4,
+  galleryImg5,
+  galleryImg6,
+  galleryImg7,
+  galleryImg8,
+  galleryImg9,
+  galleryImg10,
+  galleryImg11,
 ];
 
 const Gallery = () => {
