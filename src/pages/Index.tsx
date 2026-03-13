@@ -470,8 +470,10 @@ const GALLERY_IMAGES = [
 const Gallery = () => {
   const [activeIdx, setActiveIdx] = useState(0);
   const thumbRef = useRef<HTMLDivElement>(null);
+  const hasInteracted = useRef(false);
 
   const scroll = (dir: "left" | "right") => {
+    hasInteracted.current = true;
     const next = dir === "left"
       ? Math.max(0, activeIdx - 1)
       : Math.min(GALLERY_IMAGES.length - 1, activeIdx + 1);
@@ -479,6 +481,7 @@ const Gallery = () => {
   };
 
   useEffect(() => {
+    if (!hasInteracted.current) return;
     if (thumbRef.current) {
       const thumb = thumbRef.current.children[activeIdx] as HTMLElement;
       if (thumb) {
@@ -556,7 +559,7 @@ const Gallery = () => {
             {GALLERY_IMAGES.map((src, i) => (
               <button
                 key={i}
-                onClick={() => setActiveIdx(i)}
+                onClick={() => { hasInteracted.current = true; setActiveIdx(i); }}
                 className={`shrink-0 w-16 h-11 sm:w-20 sm:h-14 md:w-24 md:h-16 rounded overflow-hidden border-2 transition-all duration-300 ${
                   i === activeIdx ? "border-primary scale-105" : "border-transparent opacity-60 hover:opacity-100"
                 }`}
