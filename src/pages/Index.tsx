@@ -322,7 +322,7 @@ const About = () => (
           className="relative"
         >
           <img
-            src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80"
+            src={purposePrecisionImg}
             alt="Modern architectural design"
             className="w-full h-64 sm:h-80 md:h-[420px] lg:h-[500px] object-cover rounded-lg"
           />
