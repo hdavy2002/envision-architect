@@ -18,6 +18,7 @@ import galleryImg8 from "@/assets/gallery8.webp";
 import galleryImg9 from "@/assets/gallery9.webp";
 import galleryImg10 from "@/assets/gallery10.webp";
 import galleryImg11 from "@/assets/gallery11.webp";
+import modernElevationsImg from "@/assets/modern-elevations.jpeg";
 
 /* ─── font & icon injection ─── */
 const useInjectHead = () => {
@@ -58,7 +59,7 @@ const PROCESS_STEPS = [
 ];
 
 const SERVICE_CARDS = [
-  { img: "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800", title: "Modern Elevations", desc: "Contemporary facades that command attention and complement their surroundings." },
+  { img: modernElevationsImg, title: "Modern Elevations", desc: "Contemporary facades that command attention and complement their surroundings." },
   { img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800", title: "Bespoke Layouts", desc: "Every room, corridor, and threshold designed around your daily rituals." },
   { img: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800", title: "Lifestyle Design", desc: "Spaces that adapt to how you live — functional, beautiful, and unmistakably yours." },
 ];
