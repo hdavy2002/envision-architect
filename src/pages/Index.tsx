@@ -18,6 +18,7 @@ import galleryImg8 from "@/assets/gallery8.webp";
 import galleryImg9 from "@/assets/gallery9.webp";
 import galleryImg10 from "@/assets/gallery10.webp";
 import galleryImg11 from "@/assets/gallery11.webp";
+import modernElevationsImg from "@/assets/modern-elevations.jpeg";
 
 /* ─── font & icon injection ─── */
 const useInjectHead = () => {
