@@ -21,6 +21,7 @@ import galleryImg11 from "@/assets/gallery11.webp";
 import modernElevationsImg from "@/assets/modern-elevations.jpeg";
 import bespokeLayoutsImg from "@/assets/bespoke-layouts.jpeg";
 import lifestyleDesignImg from "@/assets/lifestyle-design.webp";
+import purposePrecisionImg from "@/assets/purpose-precision.webp";
 
 /* ─── font & icon injection ─── */
 const useInjectHead = () => {
@@ -321,7 +322,7 @@ const About = () => (
           className="relative"
         >
           <img
-            src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80"
+            src={purposePrecisionImg}
             alt="Modern architectural design"
             className="w-full h-64 sm:h-80 md:h-[420px] lg:h-[500px] object-cover rounded-lg"
           />
