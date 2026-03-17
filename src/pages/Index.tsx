@@ -21,6 +21,7 @@ import galleryImg11 from "@/assets/gallery11.webp";
 import modernElevationsImg from "@/assets/modern-elevations.jpeg";
 import bespokeLayoutsImg from "@/assets/bespoke-layouts.jpeg";
 import lifestyleDesignImg from "@/assets/lifestyle-design.webp";
+import purposePrecisionImg from "@/assets/purpose-precision.webp";
 
 /* ─── font & icon injection ─── */
 const useInjectHead = () => {
