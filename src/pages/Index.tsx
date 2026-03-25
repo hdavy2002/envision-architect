@@ -901,7 +901,7 @@ const Index = () => {
       <Services />
       <Gallery />
       <HoursMap />
-      <Booking />
+      
       <Contact />
       <Footer />
     </div>
