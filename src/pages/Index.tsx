@@ -5,7 +5,7 @@ import {
   useTransform,
   AnimatePresence,
 } from "framer-motion";
-import logoImg from "@/assets/logo.webp";
+import logoImg from "@/assets/logo2.jpg";
 import heroImg from "@/assets/hero-bg.webp";
 import galleryImg1 from "@/assets/gallery1.webp";
 import galleryImg2 from "@/assets/gallery2.webp";
