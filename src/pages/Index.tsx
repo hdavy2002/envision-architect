@@ -18,6 +18,18 @@ import galleryImg8 from "@/assets/gallery8.webp";
 import galleryImg9 from "@/assets/gallery9.webp";
 import galleryImg10 from "@/assets/gallery10.webp";
 import galleryImg11 from "@/assets/gallery11.webp";
+import galleryImg12 from "@/assets/gallery12.webp";
+import galleryImg13 from "@/assets/gallery13.webp";
+import galleryImg14 from "@/assets/gallery14.webp";
+import galleryImg15 from "@/assets/gallery15.webp";
+import galleryImg16 from "@/assets/gallery16.webp";
+import galleryImg17 from "@/assets/gallery17.webp";
+import galleryImg18 from "@/assets/gallery18.webp";
+import galleryImg19 from "@/assets/gallery19.webp";
+import galleryImg20 from "@/assets/gallery20.webp";
+import galleryImg21 from "@/assets/gallery21.webp";
+import galleryImg22 from "@/assets/gallery22.webp";
+import galleryImg23 from "@/assets/gallery23.webp";
 import modernElevationsImg from "@/assets/modern-elevations.jpeg";
 import bespokeLayoutsImg from "@/assets/bespoke-layouts.jpeg";
 import lifestyleDesignImg from "@/assets/lifestyle-design.webp";
@@ -469,6 +481,18 @@ const GALLERY_IMAGES = [
   galleryImg9,
   galleryImg10,
   galleryImg11,
+  galleryImg12,
+  galleryImg13,
+  galleryImg14,
+  galleryImg15,
+  galleryImg16,
+  galleryImg17,
+  galleryImg18,
+  galleryImg19,
+  galleryImg20,
+  galleryImg21,
+  galleryImg22,
+  galleryImg23,
 ];
 
 const Gallery = () => {
